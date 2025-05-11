@@ -8,7 +8,7 @@
       <link href="/2025/04/28/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86B1-%E6%9C%9F%E4%B8%AD%E5%A4%8D%E4%B9%A0/"/>
       <url>/2025/04/28/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86B1-%E6%9C%9F%E4%B8%AD%E5%A4%8D%E4%B9%A0/</url>
       
-        <content type="html"><![CDATA[<h2 id="转动惯量">转动惯量</h2><h3 id="常见物体转动惯量">常见物体转动惯量</h3><p><img src="https://pic1.imgdb.cn/item/680f835958cb8da5c8d264ac.png" />### 平行轴定理</p><p>刚体对任意轴的转动惯量＝对质心的转动惯量 + 质量乘以两个轴距离的平方<span class="math display">\[J=J_{c}+m d^{2}\]</span></p><h3 id="转动定律">转动定律</h3><ul><li>力矩：对于定轴转动，力矩等于力垂直于轴的分量，乘以它到轴的距离，<span class="math inline">\(M=Fd\)</span></li><li>转动定律：角加速度与合外力矩成正比，与转动惯量成反比，<spanclass="math inline">\(M=J \alpha\)</span></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="转动惯量">转动惯量</h2><h3 id="常见物体转动惯量">常见物体转动惯量</h3><p><imgsrc="https://pic1.imgdb.cn/item/680f835958cb8da5c8d264ac.png" /></p><p>考虑径向厚度的圆环（空心圆柱）的转动惯量为： <spanclass="math display">\[​I=\frac{1}{2}M\left(R_{1}^{2}+R_{2}^{2}\right)\]</span>其中 𝑅1R1​ 为内半径，𝑅2R2​ 为外半径。这一公式统一了薄圆环和实心圆柱的特例，表明转动惯量随质量分布的半径平方线性叠加。</p><h3 id="平行轴定理">平行轴定理</h3><p>刚体对任意轴的转动惯量＝对质心的转动惯量 + 质量乘以两个轴距离的平方<span class="math display">\[J=J_{c}+m d^{2}\]</span></p><h3 id="转动定律">转动定律</h3><ul><li>力矩：对于定轴转动，力矩等于力垂直于轴的分量，乘以它到轴的距离，<span class="math inline">\(M=Fd\)</span></li><li>转动定律：角加速度与合外力矩成正比，与转动惯量成反比，<spanclass="math inline">\(M=J \alpha\)</span></li></ul><h1 id="静电场">静电场</h1><h2 id="高斯定理">高斯定理</h2><p><imgsrc="https://pic1.imgdb.cn/item/681db34258cb8da5c8e8e0ba.png" /></p><p><imgsrc="https://pic1.imgdb.cn/item/681db31a58cb8da5c8e8e0ae.png" /></p><p><imgsrc="https://pic1.imgdb.cn/item/681db2d758cb8da5c8e8e08a.png" /></p>]]></content>
       
       
       
