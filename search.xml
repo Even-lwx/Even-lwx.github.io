@@ -4,6 +4,48 @@
   
     
     <entry>
+      <title>智能检测技术与传感器-期末复习</title>
+      <link href="/2026/01/06/%E6%99%BA%E8%83%BD%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E4%B8%8E%E4%BC%A0%E6%84%9F%E5%99%A8-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+      <url>/2026/01/06/%E6%99%BA%E8%83%BD%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E4%B8%8E%E4%BC%A0%E6%84%9F%E5%99%A8-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="绪论">绪论</h1><h2 id="传感器的发展">传感器的发展</h2><h3id="结构性传感器固体型传感器智能型传感器分别举出一些例子和使用场景">结构性传感器、固体型传感器、智能型传感器分别举出一些例子和使用场景</h3><table><colgroup><col style="width: 2%" /><col style="width: 26%" /><col style="width: 35%" /><col style="width: 36%" /></colgroup><thead><tr class="header"><th>类别</th><th>核心特征</th><th>典型例子</th><th>常见使用场景</th></tr></thead><tbody><tr class="odd"><td>结构性（结构型）传感器</td><td>通过监测结构的形变、位移、振动等，把结构响应转换为电信号。<ahref="https://cdsentec.com/zh-CN/5-common-pressure-sensors-types/">cdsentec</a>​</td><td>应变传感器、位移传感器、振动传感器。<ahref="https://cdsentec.com/zh-CN/5-common-pressure-sensors-types/">cdsentec</a>​</td><td>结构健康监测（桥梁/建筑等）、结构状态监测与自动化控制中的位置/振动反馈与诊断。<ahref="https://cdsentec.com/zh-CN/5-common-pressure-sensors-types/">cdsentec</a>​</td></tr><tr class="even"><td>固体型（固态）传感器</td><td>敏感元件/转换环节主要基于固态材料体系（如固体电解质、半导体器件等），以固体材料的电学特性实现检测。<ahref="https://sensor.ofweek.com/2020-07/ART-81009-8300-30448292.html">sensor.ofweek+1</a>​</td><td>固体电解质气体传感器。<ahref="https://sensor.ofweek.com/2020-07/ART-81009-8300-30448292.html">sensor.ofweek</a>​；固态图像传感器（CCD/CMOS）。<ahref="https://patents.google.com/patent/CN1684269A/zh">patents.google</a>​</td><td>气体检测与过程控制中的气体浓度测量。<ahref="https://sensor.ofweek.com/2020-07/ART-81009-8300-30448292.html">sensor.ofweek</a>​；手机/工业视觉/安防等成像应用。<ahref="https://patents.google.com/patent/CN1684269A/zh">patents.google</a>​</td></tr><tr class="odd"><td>智能型传感器</td><td>传感器内集成微处理器/数字接口与一定的信息处理能力，可进行检测、判断与数据处理（不只是输出原始模拟量）。</td><td>面向物联网的智能传感器/传感节点（集成算法、接口、诊断等能力）。<ahref="https://www.eet-china.com/news/2021111513299.html">eet-china</a>​</td><td>智能制造、智能家居与可穿戴、智慧城市等物联网应用场景。<ahref="https://www.eet-china.com/news/2021111513299.html">eet-china</a>​</td></tr></tbody></table><h1 id="第一章-测量概论">第一章 测量概论</h1><p><spanclass="math display">\[测量结果=测量数据+测量单位+测量误差\]</span> ##测量方法的分类</p><div class="note warning flat"><p>按照精度：等精度测量、不等精度测量</p><p>按照测量过程中被测量是否变化：动态测量、静态测量</p></div><p>是否接触：接触测量、非接触测量</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 期末复习 </tag>
+            
+            <tag> 智能检测技术与传感器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《最优化理论与算法》期末复习</title>
+      <link href="/2025/12/31/%E3%80%8A%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%E3%80%8B%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"/>
+      <url>/2025/12/31/%E3%80%8A%E6%9C%80%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%E3%80%8B%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="线性规划问题">线性规划问题</h2><p>[[Pasted image 20251231010031.png]]</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 期末复习 </tag>
+            
+            <tag> 最优化理论与算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于飞跃雷区组别的建议2</title>
       <link href="/2025/11/12/%E5%85%B3%E4%BA%8E%E9%A3%9E%E8%B7%83%E9%9B%B7%E5%8C%BA%E7%BB%84%E5%88%AB%E7%9A%84%E5%BB%BA%E8%AE%AE2/"/>
       <url>/2025/11/12/%E5%85%B3%E4%BA%8E%E9%A3%9E%E8%B7%83%E9%9B%B7%E5%8C%BA%E7%BB%84%E5%88%AB%E7%9A%84%E5%BB%BA%E8%AE%AE2/</url>
@@ -15,6 +57,27 @@
         <tags>
             
             <tag> 智能车 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>概率论与数理统计期中复习</title>
+      <link href="/2025/11/12/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1-%E6%9C%9F%E4%B8%AD%E5%A4%8D%E4%B9%A0/"/>
+      <url>/2025/11/12/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1-%E6%9C%9F%E4%B8%AD%E5%A4%8D%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<p>[[Pasted image 20251113194809.png]] [[Pasted image20251114165208.png]] # Q&amp;A</p><h2id="要清晰区分泊松分布和二项分布可从以下维度分析">要清晰区分泊松分布和二项分布，可从以下维度分析：</h2><table><colgroup><col style="width: 20%" /><col style="width: 40%" /><col style="width: 40%" /></colgroup><thead><tr class="header"><th>维度</th><th>二项分布</th><th>泊松分布</th></tr></thead><tbody><tr class="odd"><td><strong>定义与适用场景</strong></td><td>用于描述<strong>n次独立重复试验</strong>中“成功”的次数，每次试验只有“成功”或“失败”两种结果（如抛硬币n次正面朝上的次数、产品抽样的不合格品数）。</td><td>用于描述<strong>单位时间/空间内随机事件发生的次数</strong>，要求事件发生概率极小且独立（如一小时内电话呼叫次数、一天内医院急诊病人数）。</td></tr><tr class="even"><td><strong>参数</strong></td><td>两个参数：试验次数( n )、每次试验成功的概率( p )。</td><td>一个参数：单位区间内事件发生的平均次数( )。</td></tr><tr class="odd"><td><strong>概率质量函数（PMF）</strong></td><td>( P(X=k)=p<sup>k(1-p)</sup>{n-k} )（( k=0,1,,n )）</td><td>( P(X=k)= )（( k=0,1,2,)）</td></tr><tr class="even"><td><strong>期望与方差</strong></td><td>期望( E(X)=np )，方差( D(X)=np(1-p) )</td><td>期望( E(X)=)，方差( D(X)=)（期望=方差是泊松分布的显著特征）</td></tr><tr class="odd"><td><strong>试验性质</strong></td><td>基于<strong>有限次离散试验</strong>，每次试验结果互斥（成功/失败）。</td><td>基于<strong>连续区间内的计数</strong>，事件发生的概率与区间长度成正比，且不重叠区间内事件发生相互独立。</td></tr><tr class="even"><td><strong>近似关系</strong></td><td>当( n )很大、( p )很小时（( np=)且()不大），二项分布可由泊松分布近似（即( p<sup>k(1-p)</sup>{n-k})）。</td><td>——</td></tr></tbody></table><p>简单来说，二项分布聚焦“有限次试验的成功次数”，泊松分布聚焦“连续区间内的事件计数”，两者在参数、公式和应用场景上有明确边界。</p><h1 id="五大分布核心特征对比表">五大分布核心特征对比表</h1><table style="width:100%;"><colgroup><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /></colgroup><thead><tr class="header"><th>分布名称</th><th>分布类型</th><th>参数</th><th>核心公式</th><th>核心特征</th><th>适用场景</th></tr></thead><tbody><tr class="odd"><td>伯努利分布</td><td>离散型</td><td>p（成功概率）</td><td>- 概率分布：(P(X=1)=p)，(P(X=0)=1-p)<br><br>-期望：(E(X)=p)<br><br>- 方差：(D(X)=p(1-p))</td><td>单次二元结果，二项分布的特殊情况（(n=1)）</td><td>单次试验的二元结果（抛 1 次硬币、单次抽样合格性）</td></tr><tr class="even"><td>二项分布</td><td>离散型</td><td>n（试验次数）、p（成功概率）</td><td>- 概率质量函数：(P(X=k)=p<sup>k(1-p)</sup>{n-k})<br><br>-期望：(E(X)=np)<br><br>- 方差：(D(X)=np(1-p))</td><td>n 次独立伯努利试验的成功次数统计</td><td>有限次二元结果试验的成功次数（抛n次硬币正面数、抽样不合格品数）</td></tr><tr class="odd"><td>泊松分布</td><td>离散型</td><td>()（平均发生次数）</td><td>- 概率质量函数：(P(X=k)=)<br><br>- 期望：(E(X)=)<br><br>-方差：(D(X)=)</td><td>期望 = 方差，二项分布的极限近似（n大p小）</td><td>单位时间 / 空间内稀有事件计数（呼叫次数、疵点数）</td></tr><tr class="even"><td>正态分布</td><td>连续型</td><td>()（均值）、(^2)（方差）</td><td>- 概率密度函数：(f(x)=e^{-})<br><br>- 期望：(E(X)=)<br><br>-方差：(D(X)=^2)</td><td>钟形对称曲线，可通过标准化变换转化为标准正态分布</td><td>连续型数据描述（身高、体重、测量误差）</td></tr><tr class="odd"><td>指数分布</td><td>连续型</td><td>()（速率参数，(&gt;0)）</td><td>- 概率密度函数：(f(x)=e^{-x})（(x&gt;0)）<br><br>-分布函数：(F(x)=1-e^{-x})（(x&gt;0)）<br><br>- 期望：(E(X)=)<br><br>-方差：(D(X)=)</td><td>具有 “无记忆性”，与泊松分布配套（泊松过程的事件间隔）</td><td>寿命类数据、等待时间（电子元件寿命、排队等待时间）</td></tr></tbody></table>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 期中复习 </tag>
+            
+            <tag> 概率论与数理统计 </tag>
             
         </tags>
       
