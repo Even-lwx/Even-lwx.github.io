@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>项目经历 | Li Wenxuan · 技术博客</title><meta name="author" content="Li Wenxuan"><meta name="copyright" content="Li Wenxuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Li Wenxuan 的嵌入式、控制算法与机器人项目经历。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="项目经历">
+<meta property="og:url" content="https://even-lwx.github.io/projects/index.html">
+<meta property="og:site_name" content="Li Wenxuan · 技术博客">
+<meta property="og:description" content="Li Wenxuan 的嵌入式、控制算法与机器人项目经历。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://even-lwx.github.io/img/avatar.webp">
+<meta property="article:published_time" content="2026-08-08T10:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-08T09:57:23.852Z">
+<meta property="article:author" content="Li Wenxuan">
+<meta property="article:tag" content="智能科学与技术,嵌入式,STM32,ESP32,C语言,Python,算法,技术博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://even-lwx.github.io/img/avatar.webp"><link rel="shortcut icon" href="/img/avatar.webp"><link rel="canonical" href="https://even-lwx.github.io/projects/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"距离上次更新已经过去","messageNext":"天，部分内容可能已经发生变化，请结合最新资料阅读。"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '项目经历',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-08-08 17:57:23'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/projects/"><i class="fa-fw fas fa-code-branch"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Li Wenxuan · 技术博客"><span class="site-name">Li Wenxuan · 技术博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/projects/"><i class="fa-fw fas fa-code-branch"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">项目经历</h1></div></header><main class="layout hide-aside" id="content-inner"><div id="page"><div id="article-container"><div class="project-portfolio">
+<p class="project-portfolio__lead">
+我的项目主要围绕嵌入式系统、运动控制、传感器融合与机器人协同展开。
+以下内容聚焦我在项目中的职责、技术决策和可验证成果。
+</p>
+<div class="project-stats" aria-label="项目概览">
+<div class="project-stat">
+<strong>2</strong><span>核心项目</span>
+</div>
+<div class="project-stat">
+<strong>1st</strong><span>浙江赛区一等奖</span>
+</div>
+<div class="project-stat">
+<strong>1</strong><span>已受理实用新型专利</span>
+</div>
+</div>
+<div id="air-ground-system" class="project-anchor">
+
+</div>
+<h2 id="四旋翼无人机空地有缆协同系统">四旋翼无人机空地有缆协同系统</h2>
+<div class="project-meta">
+<p><span><i class="fas fa-calendar"></i> 2025.11 至今</span>
+<span><i class="fas fa-user-gear"></i> 项目负责人</span></p>
+</div>
+<div class="project-tags">
+<p><span>TRAVEO</span><span>STC32G</span><span>多传感器融合</span><span>串级
+PID</span><span>模糊 PID</span><span>计算机视觉</span></p>
+</div>
+<h3 id="项目目标">项目目标</h3>
+<p>设计四旋翼无人机与麦克纳姆轮车模的有缆协同系统。无人机自主探测地面信标灯，协同地面车模完成精准灭灯任务。</p>
+<h3 id="我的工作">我的工作</h3>
+<ul>
+<li>负责无人机端技术开发，完成 ICM42688、PMW3901、ToF
+等传感器的数据采集、解算和滤波处理。</li>
+<li>负责飞控运动控制，使用串级 PID 与模糊 PID
+复合控制，保障稳定悬停和灵活机动。</li>
+<li>完成 MT9V034
+图像采集与视觉处理，并结合多级状态机实现信标灯识别与路径规划。</li>
+<li>作为项目负责人协调系统联调，推进无人机、地面车和任务流程之间的接口闭环。</li>
+</ul>
+<h3 id="项目成果">项目成果</h3>
+<ul>
+<li>第 21
+届全国大学生智能汽车竞赛“飞跃雷区”组浙江赛区一等奖，赛区第一名。</li>
+<li>获得 2026 年全国大学生智能汽车竞赛参赛资格。</li>
+</ul>
+<div id="wheeled-leg-robot" class="project-anchor">
+
+</div>
+<h2
+id="智能手机协同的桌面级轮足机器人">智能手机协同的桌面级轮足机器人</h2>
+<div class="project-meta">
+<p><span><i class="fas fa-calendar"></i> 2024.11 - 2025.6</span>
+<span><i class="fas fa-user-gear"></i> 算法负责人</span></p>
+</div>
+<div class="project-tags">
+<p><span>ESP32</span><span>FreeRTOS</span><span>IMU</span><span>EKF</span><span>巴特沃斯滤波</span><span>多串级
+PID</span></p>
+</div>
+<h3 id="项目目标-1">项目目标</h3>
+<p>研发基于舵机串联腿结构的双足轮足机器人，通过 ESP32
+实现整机协同控制，并完成自主平衡和单边桥前进运动。</p>
+<h3 id="我的工作-1">我的工作</h3>
+<ul>
+<li>基于 FreeRTOS 搭建实时软件架构，完成任务划分与底层驱动组织。</li>
+<li>完成 IMU 姿态解算、上位机通信、总线舵机和电机驱动开发。</li>
+<li>使用多串级 PID、EKF
+和二阶巴特沃斯滤波，提高姿态估计和控制稳定性。</li>
+<li>负责平衡控制与运动算法联调，实现机器人自主平衡和单边桥前进功能。</li>
+</ul>
+<h3 id="项目成果-1">项目成果</h3>
+<ul>
+<li>获评浙江省新苗人才计划立项。</li>
+<li>相关技术成果已申请实用新型专利并获受理。</li>
+</ul>
+<div id="technical-stack" class="project-anchor">
+
+</div>
+<h2 id="技术栈">技术栈</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>方向</th>
+<th>技术与工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>嵌入式平台</td>
+<td>AURIX、TRAVEO、STM32、ESP32、STC32/8051、CH32、MM32</td>
+</tr>
+<tr>
+<td>软件与工具链</td>
+<td>C、FreeRTOS、Keil、IAR、STM32CubeIDE、ADS</td>
+</tr>
+<tr>
+<td>控制与感知</td>
+<td>串级 PID、模糊 PID、EKF、巴特沃斯滤波、IMU 解算、计算机视觉</td>
+</tr>
+<tr>
+<td>硬件开发</td>
+<td>嘉立创 EDA、DCDC 和单片机电路设计、PCB Layout 与 PCB 调试</td>
+</tr>
+<tr>
+<td>机械与工程</td>
+<td>SolidWorks、自动化脚本、上位机、服务器运维、网页部署、Android
+实践</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By Li Wenxuan</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="255,255,255" opacity="0.55" zIndex="-1" count="60" mobile="false" src="/lib/effects/canvas-nest.min.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
