@@ -2,7 +2,7 @@
   #menu-mask
   #sidebar-menus
     .avatar-img.is-center
-      img(src=url_for(theme.avatar.img) onerror=`onerror=null;src='${theme.error_img.flink}'` alt="avatar")
+      img(src=url_for(theme.avatar.img) width='110' height='110' loading='lazy' decoding='async' onerror=`onerror=null;src='${theme.error_img.flink}'` alt=config.author + ' 的头像')
     .sidebar-site-data.site-data.is-center
       a(href=url_for(config.archive_dir) + '/')
         .headline= _p('aside.articles') 

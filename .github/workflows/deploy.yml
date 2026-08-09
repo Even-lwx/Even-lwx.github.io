@@ -1,0 +1,70 @@
+name: Build and deploy Hexo
+
+on:
+  push:
+    branches:
+      - source
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes pandoc
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: |
+          npm run clean
+          npm run build
+
+      - name: Upload generated site
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: generated-site
+          path: public
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download generated site
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: generated-site
+          path: public
+
+      - name: Publish public directory
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: main
+          publish_dir: ./public
+          commit_message: "deploy: ${{ github.sha }}"

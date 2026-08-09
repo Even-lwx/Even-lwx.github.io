@@ -1,8 +1,11 @@
 node_modules/
+__pycache__/
+*.pyc
 public/
 .deploy_git/
 db.json
 *.log
+reports/lighthouse-*.json
 .DS_Store
 Thumbs.db
 

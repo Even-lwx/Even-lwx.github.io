@@ -20,11 +20,15 @@
   if (theme.local_search && theme.local_search.enable) {
     localSearch = JSON.stringify({
       path: theme.local_search.CDN ? theme.local_search.CDN : config.root + config.search.path,
+      version: config.search.build_id,
       preload: theme.local_search.preload,
       top_n_per_article: theme.local_search.top_n_per_article,
       unescape: theme.local_search.unescape,
       languages: {
         // search languages
+        load_data: _p("search.load_data"),
+        load_error: _p("search.load_error"),
+        retry: _p("search.retry"),
         hits_empty: _p("search.local_search.hits_empty"),
         hits_stats: _p("search.local_search.hits_stats"),
       }

@@ -36,6 +36,8 @@ post:
 search:
   title: Search
   load_data: Loading the Database
+  load_error: Search data could not be loaded.
+  retry: Retry
   algolia_search:
     input_placeholder: Search for Posts
     hits_empty: "We didn't find any results for the search: ${query}."

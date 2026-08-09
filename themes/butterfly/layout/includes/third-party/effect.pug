@@ -10,7 +10,176 @@ if (theme.canvas_fluttering_ribbon && theme.canvas_fluttering_ribbon.enable)
   script(defer id="fluttering_ribbon" mobile=`${theme.canvas_fluttering_ribbon.mobile}` src=url_for(theme.asset.canvas_fluttering_ribbon))
 
 if (theme.canvas_nest && theme.canvas_nest.enable)
-  script#canvas_nest(defer color=theme.canvas_nest.color opacity=theme.canvas_nest.opacity zIndex=theme.canvas_nest.zIndex count=theme.canvas_nest.count mobile=`${theme.canvas_nest.mobile}` src=url_for(theme.asset.canvas_nest))
+  - const canvasNestUrl = url_for(theme.asset.canvas_nest)
+  - const homePath = url_for('/')
+  - const canvasNestOptions = { color: theme.canvas_nest.color, opacity: theme.canvas_nest.opacity, zIndex: theme.canvas_nest.zIndex, count: theme.canvas_nest.count }
+  script.
+    (() => {
+      const source = !{JSON.stringify(canvasNestUrl)}
+      const firstHomePath = !{JSON.stringify(homePath)}
+      const options = !{JSON.stringify(canvasNestOptions)}
+      const desktopQuery = window.matchMedia('(min-width: 769px)')
+      const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+      let current = null
+
+      const normalizePath = value => {
+        const pathname = new URL(value, window.location.origin).pathname
+        return pathname.replace(/\/+$/, '') || '/'
+      }
+
+      const isFirstHome = () => {
+        return GLOBAL_CONFIG_SITE.isHome && normalizePath(location.pathname) === normalizePath(firstHomePath)
+      }
+
+      const isEligible = () => isFirstHome() && desktopQuery.matches && !reducedMotionQuery.matches
+
+      const start = () => {
+        if (current || !isEligible() || document.hidden) return
+
+        const previousRaf = window.requestAnimationFrame
+        const requestFrame = (previousRaf || (callback => window.setTimeout(callback, 1000 / 45))).bind(window)
+        const cancelFrame = (window.cancelAnimationFrame || window.clearTimeout).bind(window)
+        const previousHandlers = {
+          resize: window.onresize,
+          mousemove: window.onmousemove,
+          mouseout: window.onmouseout
+        }
+        const existingCanvases = new Set(document.querySelectorAll('body > canvas'))
+        let ownedHandlers = null
+        let canvas = null
+        let frameId = null
+        let nextFrame = null
+        let running = true
+        let destroyed = false
+
+        const managedRaf = callback => {
+          if (destroyed) return 0
+          nextFrame = callback
+          if (!running) return 0
+
+          frameId = requestFrame(time => {
+            frameId = null
+            if (running && !destroyed) callback(time)
+          })
+          return frameId
+        }
+
+        const restoreRaf = () => {
+          if (window.requestAnimationFrame === managedRaf) window.requestAnimationFrame = previousRaf
+        }
+
+        const restoreHandlers = () => {
+          if (!ownedHandlers) return
+          if (window.onresize === ownedHandlers.resize) window.onresize = previousHandlers.resize
+          if (window.onmousemove === ownedHandlers.mousemove) window.onmousemove = previousHandlers.mousemove
+          if (window.onmouseout === ownedHandlers.mouseout) window.onmouseout = previousHandlers.mouseout
+        }
+
+        const script = document.createElement('script')
+        script.id = 'canvas_nest'
+        script.src = source
+        script.defer = true
+        Object.entries(options).forEach(([key, value]) => script.setAttribute(key, value))
+        script.setAttribute('mobile', 'false')
+
+        const controller = {
+          pause: () => {
+            running = false
+            if (frameId !== null) cancelFrame(frameId)
+            frameId = null
+          },
+          resume: () => {
+            if (destroyed || running) return
+            running = true
+            if (nextFrame && frameId === null) managedRaf(nextFrame)
+          },
+          destroy: () => {
+            if (destroyed) return
+            destroyed = true
+            running = false
+            if (frameId !== null) cancelFrame(frameId)
+            frameId = null
+            nextFrame = null
+            restoreRaf()
+            restoreHandlers()
+            script.remove()
+            canvas && canvas.remove()
+            canvas = null
+            if (current === controller) current = null
+          }
+        }
+
+        current = controller
+        window.requestAnimationFrame = managedRaf
+
+        script.addEventListener('load', () => {
+          restoreRaf()
+          ownedHandlers = {
+            resize: window.onresize,
+            mousemove: window.onmousemove,
+            mouseout: window.onmouseout
+          }
+          canvas = Array.from(document.querySelectorAll('body > canvas')).find(item => !existingCanvases.has(item)) || null
+          if (destroyed) {
+            restoreHandlers()
+            canvas && canvas.remove()
+          } else if (document.hidden) {
+            controller.pause()
+          }
+        }, { once: true })
+
+        script.addEventListener('error', () => controller.destroy(), { once: true })
+        document.body.appendChild(script)
+      }
+
+      const stop = () => {
+        current && current.destroy()
+      }
+
+      const sync = () => {
+        if (!isEligible()) {
+          stop()
+        } else if (document.hidden) {
+          current && current.pause()
+        } else if (current) {
+          current.resume()
+        } else {
+          start()
+        }
+      }
+
+      const addQueryListener = query => {
+        if (query.addEventListener) query.addEventListener('change', sync)
+        else query.addListener(sync)
+      }
+
+      const previousController = window.canvasNestController
+      previousController && previousController.destroy()
+
+      const handlePjaxSend = () => stop()
+      const handlePjaxComplete = () => sync()
+      document.addEventListener('visibilitychange', sync)
+      document.addEventListener('pjax:send', handlePjaxSend)
+      document.addEventListener('pjax:complete', handlePjaxComplete)
+      addQueryListener(desktopQuery)
+      addQueryListener(reducedMotionQuery)
+
+      window.canvasNestController = {
+        sync,
+        destroy: () => {
+          stop()
+          document.removeEventListener('visibilitychange', sync)
+          document.removeEventListener('pjax:send', handlePjaxSend)
+          document.removeEventListener('pjax:complete', handlePjaxComplete)
+          if (desktopQuery.removeEventListener) desktopQuery.removeEventListener('change', sync)
+          else desktopQuery.removeListener(sync)
+          if (reducedMotionQuery.removeEventListener) reducedMotionQuery.removeEventListener('change', sync)
+          else reducedMotionQuery.removeListener(sync)
+        }
+      }
+
+      sync()
+    })()
 
 if theme.activate_power_mode.enable
   script(src=url_for(theme.asset.activate_power_mode))

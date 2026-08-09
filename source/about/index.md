@@ -1,6 +1,7 @@
 ---
 title: 关于我
 date: 2020-02-23 19:20:33
+description: 了解 if-else 的技术方向、项目经历、工程方法与联系方式。
 comments: false
 aside: false
 ---
@@ -11,6 +12,13 @@ aside: false
 你好，我是 <strong>if-else</strong>，杭州电子科技大学智能科学与技术专业学生。
 我聚焦嵌入式系统、机器人运动控制与计算机视觉，希望用软硬件协同的方法解决真实工程问题。
 </p>
+
+<div class="career-about__actions">
+<a class="career-resume-button" href="mailto:1191228412@qq.com?subject=%E7%AE%80%E5%8E%86%E7%B4%A2%E5%8F%96%20-%20if-else">
+<i class="fas fa-envelope"></i><span>邮件获取简历</span>
+</a>
+<span class="career-about__privacy">简历通过邮件提供，公开页面不存放实名文件。</span>
+</div>
 
 ## 教育与成果
 
@@ -23,19 +31,19 @@ aside: false
 ## 技术方向
 
 <div class="career-about__grid">
-<div class="career-about__card">
+<div class="career-about__area">
 <h3>MCU 与实时系统</h3>
 <p>AURIX、TRAVEO、STM32、ESP32、STC32/8051、CH32、MM32，以及 FreeRTOS 实践。</p>
 </div>
-<div class="career-about__card">
+<div class="career-about__area">
 <h3>控制与感知算法</h3>
 <p>串级 PID、模糊 PID、EKF、巴特沃斯滤波，以及 IMU 解算和计算机视觉。</p>
 </div>
-<div class="career-about__card">
+<div class="career-about__area">
 <h3>硬件与机械设计</h3>
 <p>单片机与 DCDC 电路设计、PCB Layout 和调试，以及 SolidWorks 零件与装配体建模。</p>
 </div>
-<div class="career-about__card">
+<div class="career-about__area">
 <h3>工程工具与部署</h3>
 <p>Keil、IAR、STM32CubeIDE、ADS，以及自动化脚本、上位机、服务器和网页部署实践。</p>
 </div>
@@ -55,6 +63,6 @@ aside: false
 ## 联系方式
 
 - GitHub：[Even-lwx](https://github.com/Even-lwx)
-- QQ 邮箱：[1191228412@qq.com](mailto:1191228412@qq.com)
+- QQ 邮箱：[1191228412@qq.com](mailto:1191228412@qq.com?subject=%E5%8D%9A%E5%AE%A2%E8%81%94%E7%B3%BB%20-%20if-else)
 
 </div>

@@ -18,9 +18,9 @@ section.creator-hero(aria-labelledby='home-profile-title')
           span 了解我
         a.creator-icon-button(href='https://github.com/Even-lwx' target='_blank' rel='noopener noreferrer' title='GitHub' aria-label='访问 GitHub')
           i.fab.fa-github
-        a.creator-button(href='mailto:1191228412@qq.com' title='发送邮件' aria-label='发送邮件至 1191228412@qq.com')
+        a.creator-button(href='mailto:1191228412@qq.com?subject=%E7%AE%80%E5%8E%86%E7%B4%A2%E5%8F%96%20-%20if-else' title='通过邮件索取简历')
           i.fas.fa-envelope
-          span 1191228412@qq.com
+          span 邮件获取简历
       .creator-proof(aria-label='项目成果')
         .creator-proof__item
           strong 1st
@@ -32,7 +32,7 @@ section.creator-hero(aria-labelledby='home-profile-title')
           strong 1
           span 已受理专利
     figure.creator-hero__portrait
-      img(src=url_for('/img/avatar.jpg') alt='if-else 的个人头像')
+      img(src=url_for('/img/avatar.webp') width='320' height='320' alt='if-else 的个人头像')
       figcaption
         span.creator-status-dot(aria-hidden='true')
         | 持续构建，持续记录
@@ -79,6 +79,59 @@ section.home-section.home-projects(aria-labelledby='featured-projects-title')
       a.project-showcase__link(href=url_for('/projects/#wheeled-leg-robot'))
         span 查看项目细节
         i.fas.fa-arrow-right
+
+-
+  const featuredArticles = [
+    {
+      title: '智能车轮胎研究',
+      topic: '工程分析',
+      icon: 'fas fa-car-side',
+      summary: '从材质、尺寸、胎压与胎面结构出发，分析轮胎选择对抓地力和车辆动态的影响。'
+    },
+    {
+      title: 'M0603C电机使用',
+      topic: '嵌入式控制',
+      icon: 'fas fa-microchip',
+      summary: '记录电机控制从 CRC 校验到限幅、反馈和开闭环切换的实现与迭代。'
+    },
+    {
+      title: '12306 车票信息爬虫实验答辩报告+源码-python期末作业',
+      topic: 'Python 实践',
+      icon: 'fab fa-python',
+      summary: '完整呈现方案比较、请求处理、数据解析、表格导出和答辩复盘。'
+    },
+    {
+      title: '解锁 MCP 协议：开启 AI 新世界大门',
+      topic: '技术理解',
+      icon: 'fas fa-network-wired',
+      summary: '从架构与能力边界出发，解释 MCP 与 Function Calling 的差异和协作方式。'
+    }
+  ]
+
+section.home-section.home-featured-writing(aria-labelledby='featured-writing-title')
+  header.home-section__header
+    .home-section__heading
+      span.home-section__eyebrow FEATURED WRITING
+      h2#featured-writing-title 代表性技术文章
+      p 优先展示工程分析、嵌入式实现与完整项目复盘。
+    a.home-section__more(href=url_for('/archives/'))
+      span 浏览全部文章
+      i.fas.fa-arrow-right
+
+  .featured-writing-grid
+    each article, index in featuredArticles
+      - const featuredPost = site.posts.findOne({ title: article.title })
+      if featuredPost
+        a.featured-writing__item(href=url_for(featuredPost.path))
+          .featured-writing__topline
+            span.featured-writing__index= String(index + 1).padStart(2, '0')
+            span.featured-writing__topic= article.topic
+          i.featured-writing__icon(class=article.icon aria-hidden='true')
+          h3= article.title
+          p= article.summary
+          span.featured-writing__link
+            span 阅读文章
+            i.fas.fa-arrow-right
 
 section.home-section.home-topics(aria-labelledby='home-topics-title')
   header.home-section__header

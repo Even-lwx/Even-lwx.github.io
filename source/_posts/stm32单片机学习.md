@@ -58,17 +58,17 @@ int main(void)  // 主函数，程序的入口点
 ```
 
 效果图
-[![单片机点灯](https://img.z4a.net/images/2024/09/14/9ea687ae627548c010abe19dee3780da.md.jpeg)](https://img.z4a.net/image/%E5%8D%95%E7%89%87%E6%9C%BA%E7%82%B9%E7%81%AF.AlDAR)
+[![单片机点灯](/img/posts/stm32-learning/image-01.webp)](https://img.z4a.net/image/%E5%8D%95%E7%89%87%E6%9C%BA%E7%82%B9%E7%81%AF.AlDAR)
 
 # DAY 2 (240914) LED 闪烁
 ## LED 闪烁
 
 成果
 
-<a href="https://thumbsnap.com/AbVWuJp6" title="Image Hosted by ThumbSnap"><video poster="https://thumbsnap.com/i/AbVWuJp6.jpg" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/AbVWuJp6.mp4" type="video/mp4"></video></a>
+<a href="https://thumbsnap.com/AbVWuJp6" title="Image Hosted by ThumbSnap"><video poster="/img/posts/stm32-learning/video-poster-01.webp" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/AbVWuJp6.mp4" type="video/mp4"></video></a>
 
 接线图
-[![3 1 LED闪烁](https://img.z4a.net/images/2024/09/14/3-1-LED.md.jpeg)](https://img.z4a.net/image/3-1-LED%E9%97%AA%E7%83%81.ADHhf)
+[![3 1 LED闪烁](/img/posts/stm32-learning/image-02.webp)](https://img.z4a.net/image/3-1-LED%E9%97%AA%E7%83%81.ADHhf)
 
 源码
 ```c
@@ -122,9 +122,9 @@ int main(void)
 ## LED流水灯
 
 成果
-<a href="https://thumbsnap.com/PfsjbSQD" title="Image Hosted by ThumbSnap"><video poster="https://thumbsnap.com/i/PfsjbSQD.jpg" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/PfsjbSQD.mp4" type="video/mp4"></video></a>
+<a href="https://thumbsnap.com/PfsjbSQD" title="Image Hosted by ThumbSnap"><video poster="/img/posts/stm32-learning/video-poster-02.webp" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/PfsjbSQD.mp4" type="video/mp4"></video></a>
 接线图
-[![3 2 LED流水灯](https://img.z4a.net/images/2024/09/15/3-2-LED.md.jpeg)](https://img.z4a.net/image/3-2-LED%E6%B5%81%E6%B0%B4%E7%81%AF.AkKlf)
+[![3 2 LED流水灯](/img/posts/stm32-learning/image-03.webp)](https://img.z4a.net/image/3-2-LED%E6%B5%81%E6%B0%B4%E7%81%AF.AkKlf)
 源码
 ```c
 #include "stm32f10x.h"                  // Device header
@@ -177,7 +177,7 @@ int main(void)
 OLED屏可以实时显示设备参数，可作为监视器使用。
 
 接线图
-[![4 1 OLED显示屏](https://img.z4a.net/images/2024/09/15/4-1-OLED.md.jpeg)](https://img.z4a.net/image/4-1-OLED%E6%98%BE%E7%A4%BA%E5%B1%8F.A9aDZ)
+[![4 1 OLED显示屏](/img/posts/stm32-learning/image-04.webp)](https://img.z4a.net/image/4-1-OLED%E6%98%BE%E7%A4%BA%E5%B1%8F.A9aDZ)
 
 源码
 ```c
@@ -215,7 +215,7 @@ int main(void)
 ### 关于中文显示的补充-1
 
 成果
-[![Oled](https://img.z4a.net/images/2024/09/15/Oled.md.jpeg)](https://img.z4a.net/image/Oled.A9tGK)
+[![Oled](/img/posts/stm32-learning/image-05.webp)](https://img.z4a.net/image/Oled.A9tGK)
 
 中文的显示需要手动配置头文件
 
@@ -378,7 +378,7 @@ void OLED_ShowChinese(uint8_t Line, uint8_t Column, char *Chinese)
 ## 蜂鸣器使用
 
 成果
-<a href="https://thumbsnap.com/YR8vTJzs" title="Image Hosted by ThumbSnap"><video poster="https://thumbsnap.com/i/YR8vTJzs.jpg" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/YR8vTJzs.mp4" type="video/mp4"></video></a>
+<a href="https://thumbsnap.com/YR8vTJzs" title="Image Hosted by ThumbSnap"><video poster="/img/posts/stm32-learning/video-poster-03.webp" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/YR8vTJzs.mp4" type="video/mp4"></video></a>
 
 ```c
 #include "stm32f10x.h"                  // Device header
@@ -460,7 +460,7 @@ PN 结是半导体中最重要的基本结构之一，它是由 P 型半导体�
 
 ## GPIO输入
 
-[![GPIO输入](https://img.z4a.net/images/2024/09/20/GPIO.md.png)](https://img.z4a.net/image/GPIO%E8%BE%93%E5%85%A5.MfXnr)
+[![GPIO输入](/img/posts/stm32-learning/image-06.webp)](https://img.z4a.net/image/GPIO%E8%BE%93%E5%85%A5.MfXnr)
 
 
 ## 按键控制LED
@@ -470,7 +470,7 @@ PN 结是半导体中最重要的基本结构之一，它是由 P 型半导体�
 {% endnote %}
 
 成果
-<a href="https://thumbsnap.com/e1hWHKzG" title="Image Hosted by ThumbSnap"><video poster="https://thumbsnap.com/i/e1hWHKzG.jpg" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/e1hWHKzG.mp4" type="video/mp4"></video></a>
+<a href="https://thumbsnap.com/e1hWHKzG" title="Image Hosted by ThumbSnap"><video poster="/img/posts/stm32-learning/video-poster-04.webp" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/e1hWHKzG.mp4" type="video/mp4"></video></a>
 
 # DAY 6 (240921) 自创-光线传感器控制LED灯
 
@@ -481,7 +481,7 @@ PN 结是半导体中最重要的基本结构之一，它是由 P 型半导体�
 成果
 
 
-<a href="https://thumbsnap.com/BCFkhBtj" title="Image Hosted by ThumbSnap"><video poster="https://thumbsnap.com/i/BCFkhBtj.jpg" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/BCFkhBtj.mp4" type="video/mp4"></video></a>
+<a href="https://thumbsnap.com/BCFkhBtj" title="Image Hosted by ThumbSnap"><video poster="/img/posts/stm32-learning/video-poster-05.webp" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/BCFkhBtj.mp4" type="video/mp4"></video></a>
 
 **main函数**
 
@@ -593,12 +593,12 @@ uint8_t LIGHT_SENSOR_Get(void);
 首先先捋一下各个设备的联系
 ### NVIC简介
 NVIC（嵌套向量中断控制器）是用于管理微控制器中断的模块，可实现中断优先级设置、中断嵌套等功能，以高效地处理各种外部和内部中断事件。
-[![NVIC是CPU的小助手](https://img.z4a.net/images/2024/09/23/NVICCPU.png)](https://img.z4a.net/image/NVIC%E6%98%AFCPU%E7%9A%84%E5%B0%8F%E5%8A%A9%E6%89%8B.MzQ3j)
+[![NVIC是CPU的小助手](/img/posts/stm32-learning/image-07.webp)](https://img.z4a.net/image/NVIC%E6%98%AFCPU%E7%9A%84%E5%B0%8F%E5%8A%A9%E6%89%8B.MzQ3j)
 所以exti是只是实现中断的一种手段
 
 ### EXTI
-[![EXTI简介](https://img.z4a.net/images/2024/09/23/EXTIf544aa51e86abc1c.png)](https://img.z4a.net/image/EXTI%E7%AE%80%E4%BB%8B.MzHjk)
-[![EXTI基本结构](https://img.z4a.net/images/2024/09/23/EXTI.png)](https://img.z4a.net/image/EXTI%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.Mzwtz)
+[![EXTI简介](/img/posts/stm32-learning/image-08.webp)](https://img.z4a.net/image/EXTI%E7%AE%80%E4%BB%8B.MzHjk)
+[![EXTI基本结构](/img/posts/stm32-learning/image-09.webp)](https://img.z4a.net/image/EXTI%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.Mzwtz)
 [中断-NVIC与EXTI外设详解(超全面)-CSDN博客](https://blog.csdn.net/k666499436/article/details/124181471)
 所以我们配置的顺序是从GPIO开始，到AFIO选择线路（总共16条从AFIO中出去），进入EXTI再到NVIC。
 
@@ -608,7 +608,7 @@ NVIC（嵌套向量中断控制器）是用于管理微控制器中断的模块�
 
 成果
 
-<a href="https://thumbsnap.com/pWhfFCw3" title="Image Hosted by ThumbSnap"><video poster="https://thumbsnap.com/i/pWhfFCw3.jpg" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/pWhfFCw3.mp4" type="video/mp4"></video></a>
+<a href="https://thumbsnap.com/pWhfFCw3" title="Image Hosted by ThumbSnap"><video poster="/img/posts/stm32-learning/video-poster-06.webp" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/pWhfFCw3.mp4" type="video/mp4"></video></a>
 
 运用知识点：
 
@@ -620,7 +620,7 @@ NVIC（嵌套向量中断控制器）是用于管理微控制器中断的模块�
 
 成果
 
-<a href="https://thumbsnap.com/uKDTVkQs" title="Image Hosted by ThumbSnap"><video poster="https://thumbsnap.com/i/uKDTVkQs.jpg" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/uKDTVkQs.mp4" type="video/mp4"></video></a>
+<a href="https://thumbsnap.com/uKDTVkQs" title="Image Hosted by ThumbSnap"><video poster="/img/posts/stm32-learning/video-poster-07.webp" loop muted autoplay playsinline><source src="https://thumbsnap.com/i/uKDTVkQs.mp4" type="video/mp4"></video></a>
 
 
 

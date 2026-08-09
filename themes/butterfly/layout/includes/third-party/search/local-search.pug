@@ -6,9 +6,10 @@
       button.search-close-button
         i.fas.fa-times
 
-    #loading-database.is-center
+    #loading-database.is-center(role='status' aria-live='polite')
       i.fas.fa-spinner.fa-pulse
-      span= '  ' + _p("search.load_data")
+      span.loading-database-message= '  ' + _p("search.load_data")
+      button#local-search-retry(type='button' hidden)= _p("search.retry")
 
     .search-wrap
       #local-search-input

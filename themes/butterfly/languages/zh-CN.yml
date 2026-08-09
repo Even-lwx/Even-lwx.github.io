@@ -37,6 +37,8 @@ post:
 search:
   title: 搜索
   load_data: 数据库加载中
+  load_error: 搜索数据加载失败，请检查网络后重试。
+  retry: 重新加载
   algolia_search:
     input_placeholder: 搜索文章
     hits_empty: '找不到您查询的内容：${query}'

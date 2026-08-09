@@ -37,6 +37,8 @@ post:
 search:
   title: 搜尋
   load_data: 資料庫載入中
+  load_error: 搜尋資料載入失敗，請檢查網路後重試。
+  retry: 重新載入
   algolia_search:
     input_placeholder: 搜尋文章
     hits_empty: '找不到您查詢的內容：${query}'

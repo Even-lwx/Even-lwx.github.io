@@ -68,14 +68,13 @@ int main()
 # 图片
 图片的插入
 网络
-![图片网络链接](https://patchwiki.biligame.com/images/ys/2/2e/ang2w3cxk8535wicpksvz6pq0xoxbwi.png)
+![图片网络链接](/img/posts/markdown-learning/image-01.webp)
 图片（做了图床用的gitee，但是好像不行。现在是用现成的）
 
 这个照片不是本人！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 
-![本地图片](https://pic.imgdb.cn/item/66c86b27d9c307b7e9722e08.jpg)
-用gitee的
-![ymh](https://gitee.com/Even_lwx/images/raw/master/ymh.jpg)
+![本地图片](/img/posts/markdown-learning/image-02.webp)
+原先用于演示的 Gitee 图床链接已经失效。本站文章图片现统一放在 `source/img/posts/`，并使用站内路径引用。
 
 ***
 
@@ -98,7 +97,7 @@ int main()
 我是警告色（高亮文本）
 {% endnote %}
 方法
-![](https://pic.imgdb.cn/item/66c88f63d9c307b7e9afbf44.png)
+![](/img/posts/markdown-learning/image-04.webp)
 
 ***
 
@@ -170,7 +169,6 @@ $$
 ***
 
 [^1]:我是脚注
-
 
 
 

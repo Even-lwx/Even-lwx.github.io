@@ -43,11 +43,11 @@ social:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/avatar.jpg
+favicon: /img/avatar.webp
 
 # Avatar (頭像)
 avatar:
-  img: /img/avatar.jpg
+  img: /img/avatar.webp
   effect: false
 
 # Disable all banner image

@@ -243,7 +243,7 @@ int main()
 # 2024-3
 
 ## 程序员买包子
-![bao.jpg](https://images.ptausercontent.com/a35ac075-7709-4ff7-b7ce-6d2208afc6af.jpg)
+![bao.jpg](/img/posts/hdu-precourse-pta/image-01.webp)
 
 这是一条检测真正程序员的段子：假如你被家人要求下班顺路买十只包子，如果看到卖西瓜的，买一只。那么你会在什么情况下只买一只包子回家？  
 本题要求你考虑这个段子的通用版：假如你被要求下班顺路买 N 只包子，如果看到卖 X 的，买 M 只。那么如果你最后买了 K 只包子回家，说明你看到卖 X 的没有呢？
@@ -809,7 +809,7 @@ int main() {
 ```
 
 ## 寻找250
-![](https://images.ptausercontent.com/365)
+![](/img/posts/hdu-precourse-pta/image-02.webp)
 
 对方不想和你说话，并向你扔了一串数…… 而你必须从这一串数字中找到“250”这个高大上的感人数字。
 
@@ -1010,7 +1010,7 @@ return 0;
 # 2024-5
 
 ## 大笨钟的心情
-![心情.jpg](https://images.ptausercontent.com/8c3b8713-1703-4e56-addb-492f738c3a7c.jpg)
+![心情.jpg](/img/posts/hdu-precourse-pta/image-03.webp)
 
 有网友问：未来还会有更多大笨钟题吗？笨钟回复说：看心情……
 

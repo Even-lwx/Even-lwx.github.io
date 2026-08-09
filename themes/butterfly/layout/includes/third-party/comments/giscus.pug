@@ -5,11 +5,95 @@
 
 script.
   (()=>{
+    const $wrap = document.getElementById('giscus-wrap')
+    if (!$wrap) return
+
+    let intersectionObserver = null
+    let frameObserver = null
+    let loadTimer = null
+    let loadState = 'idle'
+    const lazyloadEnabled = !{JSON.stringify(Boolean(lazyload))}
+
     const getGiscusTheme = theme => {
       return theme === 'dark' ? '!{themes.dark}' : '!{themes.light}'
     }
 
+    const clearFrameWatch = () => {
+      frameObserver && frameObserver.disconnect()
+      frameObserver = null
+      clearTimeout(loadTimer)
+      loadTimer = null
+    }
+
+    const removeLoadState = () => {
+      $wrap.querySelector('.giscus-load-state')?.remove()
+    }
+
+    const renderLoadState = (type, message, retry = false) => {
+      removeLoadState()
+
+      const status = document.createElement('div')
+      status.className = `giscus-load-state giscus-load-state--${type}`
+      status.setAttribute('role', type === 'error' ? 'alert' : 'status')
+
+      if (type === 'loading') {
+        const icon = document.createElement('i')
+        icon.className = 'fas fa-circle-notch fa-spin'
+        icon.setAttribute('aria-hidden', 'true')
+        status.appendChild(icon)
+      }
+
+      const text = document.createElement('span')
+      text.textContent = message
+      status.appendChild(text)
+
+      if (retry) {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.className = 'giscus-retry-button'
+        button.textContent = '重新加载'
+        button.addEventListener('click', () => {
+          resetGiscus()
+          loadGiscus()
+        }, { once: true })
+        status.appendChild(button)
+      }
+
+      $wrap.appendChild(status)
+    }
+
+    const markGiscusReady = () => {
+      if (!$wrap.querySelector('iframe.giscus-frame')) return false
+
+      loadState = 'loaded'
+      clearFrameWatch()
+      removeLoadState()
+      return true
+    }
+
+    const renderGiscusError = () => {
+      if (markGiscusReady()) return
+
+      loadState = 'error'
+      clearFrameWatch()
+      $wrap.querySelector('script[data-giscus-loader]')?.remove()
+      renderLoadState('error', '评论暂时不可用', true)
+    }
+
+    const resetGiscus = () => {
+      clearFrameWatch()
+      removeLoadState()
+      $wrap.querySelectorAll('script[data-giscus-loader], iframe.giscus-frame').forEach(item => item.remove())
+      loadState = 'idle'
+    }
+
     const loadGiscus = () => {
+      if (loadState === 'loading' || loadState === 'loaded') return
+      if (markGiscusReady()) return
+
+      loadState = 'loading'
+      renderLoadState('loading', '评论加载中')
+
       const config = Object.assign({
         src: '!{giscusUrl}',
         'data-repo': '!{repo}',
@@ -27,7 +111,14 @@ script.
       for (let key in config) {
         ele.setAttribute(key, config[key])
       }
-      document.getElementById('giscus-wrap').appendChild(ele)
+      ele.setAttribute('data-giscus-loader', '')
+      ele.addEventListener('error', renderGiscusError, { once: true })
+      ele.addEventListener('load', markGiscusReady, { once: true })
+
+      frameObserver = new MutationObserver(markGiscusReady)
+      frameObserver.observe($wrap, { childList: true, subtree: true })
+      loadTimer = setTimeout(renderGiscusError, 12000)
+      $wrap.appendChild(ele)
     }
 
     const changeGiscusTheme = theme => {
@@ -46,10 +137,28 @@ script.
 
     btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
 
-    if ('!{use[0]}' === 'Giscus' || !!{lazyload}) {
-      if (!{lazyload}) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
-      else loadGiscus()
+    const cleanupGiscus = () => {
+      intersectionObserver && intersectionObserver.disconnect()
+      intersectionObserver = null
+      clearFrameWatch()
+      if (window.loadOtherComment === loadGiscus) delete window.loadOtherComment
+    }
+
+    btf.addGlobalFn('pjax', cleanupGiscus, 'giscusLazyload')
+
+    if ('!{use[0]}' === 'Giscus' || lazyloadEnabled) {
+      if (lazyloadEnabled && 'IntersectionObserver' in window) {
+        intersectionObserver = new IntersectionObserver(entries => {
+          if (!entries.some(entry => entry.isIntersecting)) return
+          intersectionObserver.disconnect()
+          intersectionObserver = null
+          loadGiscus()
+        }, { rootMargin: '320px 0px', threshold: 0 })
+        intersectionObserver.observe($wrap)
+      } else {
+        loadGiscus()
+      }
     } else {
-      window.loadOtherComment= loadGiscus
+      window.loadOtherComment = loadGiscus
     }
   })()

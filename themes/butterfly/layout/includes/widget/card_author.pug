@@ -6,7 +6,7 @@ if theme.aside.card_author.enable
           i.fas.fa-code
           span= theme.aside.card_author.kicker
       .avatar-img
-        img(src=url_for(theme.avatar.img) onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=config.author)
+        img(src=url_for(theme.avatar.img) width='110' height='110' loading='lazy' decoding='async' onerror=`this.onerror=null;this.src='` + url_for(theme.error_img.flink) + `'` alt=config.author + ' 的头像')
       .author-info__name= config.author
       if theme.aside.card_author.role
         .aside-profile__role= theme.aside.card_author.role
