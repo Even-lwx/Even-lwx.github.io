@@ -105,6 +105,48 @@ aside: false
 - 获评浙江省新苗人才计划立项。
 - 相关技术成果已申请实用新型专利并获受理。
 
+<div id="open-source" class="project-anchor"></div>
+
+## 公开仓库精选
+
+<p class="project-section-note">
+除完整项目经历外，下面两个仓库可以直接查看实现细节与提交记录。展示内容仅描述源码中可核验的功能。
+</p>
+
+### N-Car 倒立摆小车控制固件
+
+<div class="project-meta">
+<span><i class="fab fa-github"></i> 嵌入式控制固件</span>
+<span><i class="fas fa-code-branch"></i> 持续迭代与调试记录</span>
+</div>
+
+<div class="project-tags">
+<span>TC264D</span><span>C</span><span>三环 PID</span><span>IMU</span><span>EKF</span><span>Flash</span>
+</div>
+
+- **解决的问题：** 在 TC264D 平台上组织倒立摆小车的姿态感知、平衡控制、转向与参数调试流程。
+- **可核验实现：** 互补滤波与四元数 EKF 两套姿态解算、角速度/角度/速度多环控制、LCD 参数菜单，以及带版本和校验信息的 Flash 参数保存。
+- **工程侧重点：** 将控制器、传感器、菜单和参数持久化拆分为独立模块，并通过提交记录保留转向补偿、参数保存和菜单显示问题的修复过程。
+
+<a class="project-repo-link" href="https://github.com/Even-lwx/N_Car" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i><span>查看 N_Car 源码</span><i class="fas fa-arrow-up-right-from-square"></i></a>
+
+### 飞书发票批量归档工具
+
+<div class="project-meta">
+<span><i class="fab fa-github"></i> Python 桌面工具</span>
+<span><i class="fas fa-shield-halved"></i> 凭据与源码分离</span>
+</div>
+
+<div class="project-tags">
+<span>Python</span><span>PyQt5</span><span>Selenium</span><span>OpenPyXL</span><span>PyInstaller</span>
+</div>
+
+- **解决的问题：** 将飞书导出的 Excel 表格中的发票附件批量归档，减少逐条打开页面和手动保存文件的重复操作。
+- **可核验实现：** 读取单元格超链接、浏览器会话登录、附件发现与下载、下载状态反馈，以及通过工作线程隔离耗时任务的 PyQt5 图形界面。
+- **工程侧重点：** 将界面与下载逻辑分离，提供环境变量和本地忽略文件两种凭据配置方式，并保留命令行入口与 PyInstaller 打包配置。
+
+<a class="project-repo-link" href="https://github.com/Even-lwx/FeishuInvCrawl" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i><span>查看 FeishuInvCrawl 源码</span><i class="fas fa-arrow-up-right-from-square"></i></a>
+
 <div id="technical-stack" class="project-anchor"></div>
 
 ## 技术栈
