@@ -499,7 +499,7 @@ body {
 
 #recent-posts.creator-home-feed > .recent-post-item {
   align-items: stretch;
-  min-height: 14rem;
+  min-height: 11.5rem;
   height: auto;
   margin-top: 0;
   border-radius: 8px;
@@ -528,11 +528,11 @@ body {
 }
 
 #recent-posts.creator-home-feed .recent-post-info > .content {
-  margin-top: 0.75rem;
+  margin-top: 0.65rem;
   color: var(--career-muted);
   font-size: 0.78rem;
-  line-height: 1.75;
-  -webkit-line-clamp: 3;
+  line-height: 1.65;
+  -webkit-line-clamp: 2;
 }
 
 #recent-posts.creator-home-feed > .recent-post-item:hover {
@@ -1759,7 +1759,7 @@ body {
   }
 
   #recent-posts.creator-home-feed > .recent-post-item {
-    min-height: 12rem;
+    min-height: 10.5rem;
   }
 }
 
