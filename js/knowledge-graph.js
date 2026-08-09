@@ -90,8 +90,8 @@
       width: 0,
       height: 0,
       scale: 1,
-      offsetX: 0,
-      offsetY: 0,
+      rotationX: -0.12,
+      rotationY: 0,
       hoveredNode: null,
       focusedNode: null,
       selectedNode: null,
@@ -108,54 +108,45 @@
 
     const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark'
 
-    const worldToScreen = node => ({
-      x: (node.x - state.width / 2) * state.scale + state.width / 2 + state.offsetX,
-      y: (node.y - state.height / 2) * state.scale + state.height / 2 + state.offsetY
-    })
+    const getSphereRadius = () => Math.max(110, Math.min(state.width, state.height) * 0.39)
 
-    const screenToWorld = point => ({
-      x: (point.x - state.width / 2 - state.offsetX) / state.scale + state.width / 2,
-      y: (point.y - state.height / 2 - state.offsetY) / state.scale + state.height / 2
-    })
+    const projectNode = node => {
+      const cosY = Math.cos(state.rotationY)
+      const sinY = Math.sin(state.rotationY)
+      const rotatedX = node.x * cosY + node.z * sinY
+      const rotatedZ = -node.x * sinY + node.z * cosY
+      const cosX = Math.cos(state.rotationX)
+      const sinX = Math.sin(state.rotationX)
+      const rotatedY = node.y * cosX - rotatedZ * sinX
+      const depth = rotatedY * sinX + rotatedZ * cosX
+      const perspective = 1 / (1 - depth * 0.28)
+      const radius = getSphereRadius() * state.scale
+
+      return {
+        x: state.width / 2 + rotatedX * radius * perspective,
+        y: state.height / 2 + rotatedY * radius * perspective,
+        z: depth,
+        perspective
+      }
+    }
 
     const layoutNodes = () => {
-      const centerX = state.width / 2
-      const searchInset = state.width < 520 ? 64 : 0
-      const centerY = searchInset + (state.height - searchInset) / 2
-      const outerRadiusX = Math.max(90, state.width * 0.4)
-      const outerRadiusY = Math.max(120, (state.height - searchInset) * 0.4)
-      const innerRadiusX = outerRadiusX * 0.5
-      const innerRadiusY = outerRadiusY * 0.5
-      const innerCount = Math.min(9, Math.max(5, Math.round(nodes.length * 0.3)))
       const goldenAngle = Math.PI * (3 - Math.sqrt(5))
 
       nodes.forEach((node, index) => {
-        if (index === 0) {
-          node.x = centerX
-          node.y = centerY
-          return
-        }
-
-        const innerRing = index <= innerCount
-        const ringIndex = innerRing ? index - 1 : index - innerCount - 1
-        const ringLength = innerRing ? innerCount : Math.max(1, nodes.length - innerCount - 1)
-        const radiusScale = innerRing
-          ? 0.88 + (ringIndex % 2) * 0.08
-          : 0.84 + (ringIndex % 3) * 0.055
-        const radiusX = (innerRing ? innerRadiusX : outerRadiusX) * radiusScale
-        const radiusY = (innerRing ? innerRadiusY : outerRadiusY) * radiusScale
-        const angle = ringIndex * goldenAngle + (innerRing ? -Math.PI / 2 : Math.PI / 8)
-        const horizontalStretch = state.width > 680 ? 1.1 : 0.95
-
-        node.x = centerX + Math.cos(angle) * radiusX * horizontalStretch
-        node.y = centerY + Math.sin(angle) * radiusY
+        const y = 1 - ((index + 0.5) / nodes.length) * 2
+        const ringRadius = Math.sqrt(Math.max(0, 1 - y * y))
+        const angle = index * goldenAngle
+        node.x = Math.cos(angle) * ringRadius
+        node.y = y
+        node.z = Math.sin(angle) * ringRadius
       })
     }
 
     const resetView = () => {
       state.scale = 1
-      state.offsetX = 0
-      state.offsetY = 0
+      state.rotationX = -0.12
+      state.rotationY = 0
       layoutNodes()
       requestDraw()
     }
@@ -190,23 +181,58 @@
       context.restore()
     }
 
+    const drawSphere = dark => {
+      const radius = getSphereRadius() * state.scale
+      const centerX = state.width / 2
+      const centerY = state.height / 2
+      const gradient = context.createRadialGradient(
+        centerX - radius * 0.38,
+        centerY - radius * 0.46,
+        radius * 0.08,
+        centerX,
+        centerY,
+        radius * 1.08
+      )
+      gradient.addColorStop(0, dark ? 'rgba(59, 130, 246, 0.16)' : 'rgba(59, 130, 246, 0.08)')
+      gradient.addColorStop(0.62, dark ? 'rgba(20, 184, 166, 0.08)' : 'rgba(20, 184, 166, 0.05)')
+      gradient.addColorStop(1, dark ? 'rgba(15, 23, 42, 0.02)' : 'rgba(148, 163, 184, 0.02)')
+
+      context.save()
+      context.beginPath()
+      context.arc(centerX, centerY, radius, 0, Math.PI * 2)
+      context.fillStyle = gradient
+      context.fill()
+      context.lineWidth = 1
+      context.strokeStyle = dark ? 'rgba(147, 197, 253, 0.22)' : 'rgba(37, 99, 235, 0.16)'
+      context.stroke()
+      context.restore()
+    }
+
     const draw = time => {
+      const previousTime = state.lastTime
       state.lastTime = time || state.lastTime
       const dark = isDark()
       const activeNode = state.draggedNode || state.hoveredNode || state.focusedNode || state.selectedNode
       const activeNeighbours = activeNode ? neighbours.get(activeNode.id) : null
-      const motion = reducedMotion || state.motionPaused || state.draggedNode ? 0 : 1
+      const motion = reducedMotion || state.motionPaused || state.pointer ? 0 : 1
       const searching = state.searchQuery.length > 0
+
+      if (motion && previousTime && time) {
+        state.rotationY += Math.min(50, time - previousTime) * 0.00006
+      }
 
       context.clearRect(0, 0, state.width, state.height)
       drawGrid(dark)
+      drawSphere(dark)
 
       nodes.forEach(node => {
-        const point = worldToScreen(node)
-        const driftX = Math.cos(state.lastTime * 0.00034 + node.phase) * 1.8 * motion
-        const driftY = Math.sin(state.lastTime * 0.00028 + node.phase) * 1.6 * motion
+        const point = projectNode(node)
+        const driftX = Math.cos(state.lastTime * 0.00034 + node.phase) * 1.2 * motion
+        const driftY = Math.sin(state.lastTime * 0.00028 + node.phase) * 1.1 * motion
         node.screenX = point.x + driftX
         node.screenY = point.y + driftY
+        node.screenZ = point.z
+        node.depthScale = point.perspective
       })
 
       context.save()
@@ -218,12 +244,13 @@
         const alpha = searching && !sourceMatches && !targetMatches
           ? 0.035
           : activeNode ? (connected ? 0.72 : 0.07) : 0.22
+        const depthAlpha = (link.sourceNode.depthScale + link.targetNode.depthScale) / 2
         context.beginPath()
         context.moveTo(link.sourceNode.screenX, link.sourceNode.screenY)
         context.lineTo(link.targetNode.screenX, link.targetNode.screenY)
         context.strokeStyle = dark
-          ? `rgba(148, 163, 184, ${alpha})`
-          : `rgba(71, 85, 105, ${alpha})`
+          ? `rgba(148, 163, 184, ${alpha * depthAlpha})`
+          : `rgba(71, 85, 105, ${alpha * depthAlpha})`
         context.lineWidth = connected ? clamp(link.weight * 0.75, 1, 3) : 1
         context.stroke()
 
@@ -239,15 +266,15 @@
       })
       context.restore()
 
-      nodes.forEach(node => {
+      nodes.slice().sort((first, second) => first.screenZ - second.screenZ).forEach(node => {
         const selected = activeNode && node.id === activeNode.id
         const related = activeNeighbours && activeNeighbours.has(node.id)
         const searchMatch = !searching || state.searchMatches.has(node.id)
         const muted = !searchMatch || (activeNode && !selected && !related)
-        const radius = clamp(node.radius * state.scale, 7, 25)
+        const radius = clamp(node.radius * state.scale * node.depthScale, 6, 28)
 
         context.save()
-        context.globalAlpha = muted ? 0.22 : 1
+        context.globalAlpha = muted ? 0.16 : clamp(0.56 + node.depthScale * 0.44, 0.56, 1)
         context.beginPath()
         context.arc(node.screenX, node.screenY, radius + (selected ? 5 : 0), 0, Math.PI * 2)
         context.fillStyle = selected
@@ -286,14 +313,14 @@
           if (second === activeNode) return 1
           const firstRelated = activeNeighbours && activeNeighbours.has(first.id) ? 1 : 0
           const secondRelated = activeNeighbours && activeNeighbours.has(second.id) ? 1 : 0
-          return secondRelated - firstRelated || first.index - second.index
+          return secondRelated - firstRelated || second.screenZ - first.screenZ
         })
 
       labelNodes.forEach(node => {
         const selected = node === activeNode
         const searchMatch = !searching || state.searchMatches.has(node.id)
         const muted = !searchMatch || (activeNode && !selected && !(activeNeighbours && activeNeighbours.has(node.id)))
-        const radius = clamp(node.radius * state.scale, 7, 25)
+        const radius = clamp(node.radius * state.scale * node.depthScale, 6, 28)
         const maxLength = state.width < 520 ? 7 : 12
         const label = node.name.length > maxLength ? `${node.name.slice(0, maxLength)}…` : node.name
         const fontSize = state.width < 520 ? 11 : 12
@@ -372,7 +399,7 @@
     const hitTest = point => {
       for (let index = nodes.length - 1; index >= 0; index -= 1) {
         const node = nodes[index]
-        const radius = clamp(node.radius * state.scale, 7, 25) + 8
+        const radius = clamp(node.radius * state.scale * node.depthScale, 6, 28) + 8
         if (Math.hypot(point.x - node.screenX, point.y - node.screenY) <= radius) return node
       }
       return null
@@ -380,8 +407,7 @@
 
     const centerOnNode = node => {
       state.scale = Math.max(1.08, state.scale)
-      state.offsetX = -(node.x - state.width / 2) * state.scale
-      state.offsetY = -(node.y - state.height / 2) * state.scale
+      state.rotationY = Math.atan2(-node.x, node.z)
     }
 
     const updateDetail = node => {
@@ -497,9 +523,9 @@
         moved: false,
         node
       }
-      state.draggedNode = node
+      state.draggedNode = null
       canvas.setPointerCapture(event.pointerId)
-      canvas.style.cursor = node ? 'grabbing' : 'move'
+      canvas.style.cursor = 'grabbing'
       requestDraw()
     })
 
@@ -515,18 +541,12 @@
       const distance = Math.hypot(point.x - state.pointer.startX, point.y - state.pointer.startY)
       state.pointer.moved = state.pointer.moved || distance > 4
 
-      if (state.draggedNode) {
-        const world = screenToWorld(point)
-        state.draggedNode.x = world.x
-        state.draggedNode.y = world.y
-      } else {
-        state.offsetX += deltaX
-        state.offsetY += deltaY
-      }
+      state.rotationY += deltaX * 0.008
+      state.rotationX = clamp(state.rotationX - deltaY * 0.008, -1.35, 1.35)
 
       state.pointer.previousX = point.x
       state.pointer.previousY = point.y
-      showTooltip(state.draggedNode, point)
+      tooltip.hidden = true
       requestDraw()
     })
 
@@ -560,19 +580,15 @@
       if (node) window.location.href = node.url
     })
 
-    const setScale = (nextScale, origin) => {
-      const before = screenToWorld(origin)
+    const setScale = nextScale => {
       state.scale = clamp(nextScale, 0.65, 1.9)
-      state.offsetX = origin.x - state.width / 2 - (before.x - state.width / 2) * state.scale
-      state.offsetY = origin.y - state.height / 2 - (before.y - state.height / 2) * state.scale
       requestDraw()
     }
 
     canvas.addEventListener('wheel', event => {
       event.preventDefault()
-      const point = pointerPosition(event)
       const factor = event.deltaY > 0 ? 0.9 : 1.1
-      setScale(state.scale * factor, point)
+      setScale(state.scale * factor)
     }, { passive: false })
 
     canvas.addEventListener('keydown', event => {
