@@ -7,14 +7,14 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://even-lwx.github.io/img/avatar.webp">
 <meta property="article:published_time" content="2026-08-08T10:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-09T17:01:41.634Z">
+<meta property="article:modified_time" content="2026-08-09T17:23:52.207Z">
 <meta property="article:author" content="if-else">
 <meta property="article:tag" content="智能科学与技术,嵌入式,STM32,ESP32,C语言,Python,算法,技术博客">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://even-lwx.github.io/img/avatar.webp"><link rel="shortcut icon" href="/img/avatar.webp"><link rel="canonical" href="https://even-lwx.github.io/projects/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="/lib/fontawesome/css/all.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/lib/fontawesome/css/all.min.css"></noscript><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.json","version":"msm1vuh1","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"load_data":"数据库加载中","load_error":"搜索数据加载失败，请检查网络后重试。","retry":"重新加载","hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: {"path":"/search.json","version":"msm2o7xw","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"load_data":"数据库加载中","load_error":"搜索数据加载失败，请检查网络后重试。","retry":"重新加载","hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: undefined,
   noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"距离上次更新已经过去","messageNext":"天，部分内容可能已经发生变化，请结合最新资料阅读。"},
   highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2026-08-10 01:01:41'
+  postUpdate: '2026-08-10 01:23:52'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -280,6 +280,55 @@ PID</span></p>
 <li>获评浙江省新苗人才计划立项。</li>
 <li>相关技术成果已申请实用新型专利并获受理。</li>
 </ul>
+<div id="open-source" class="project-anchor">
+
+</div>
+<h2 id="公开仓库精选">公开仓库精选</h2>
+<p class="project-section-note">
+除完整项目经历外，下面两个仓库可以直接查看实现细节与提交记录。展示内容仅描述源码中可核验的功能。
+</p>
+<h3 id="n-car-倒立摆小车控制固件">N-Car 倒立摆小车控制固件</h3>
+<div class="project-meta">
+<p><span><i class="fab fa-github"></i> 嵌入式控制固件</span>
+<span><i class="fas fa-code-branch"></i> 持续迭代与调试记录</span></p>
+</div>
+<div class="project-tags">
+<p><span>TC264D</span><span>C</span><span>三环
+PID</span><span>IMU</span><span>EKF</span><span>Flash</span></p>
+</div>
+<ul>
+<li><strong>解决的问题：</strong> 在 TC264D
+平台上组织倒立摆小车的姿态感知、平衡控制、转向与参数调试流程。</li>
+<li><strong>可核验实现：</strong> 互补滤波与四元数 EKF
+两套姿态解算、角速度/角度/速度多环控制、LCD
+参数菜单，以及带版本和校验信息的 Flash 参数保存。</li>
+<li><strong>工程侧重点：</strong>
+将控制器、传感器、菜单和参数持久化拆分为独立模块，并通过提交记录保留转向补偿、参数保存和菜单显示问题的修复过程。</li>
+</ul>
+<p><a class="project-repo-link" href="https://github.com/Even-lwx/N_Car" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i><span>查看
+N_Car
+源码</span><i class="fas fa-arrow-up-right-from-square"></i></a></p>
+<h3 id="飞书发票批量归档工具">飞书发票批量归档工具</h3>
+<div class="project-meta">
+<p><span><i class="fab fa-github"></i> Python 桌面工具</span>
+<span><i class="fas fa-shield-halved"></i> 凭据与源码分离</span></p>
+</div>
+<div class="project-tags">
+<p><span>Python</span><span>PyQt5</span><span>Selenium</span><span>OpenPyXL</span><span>PyInstaller</span></p>
+</div>
+<ul>
+<li><strong>解决的问题：</strong> 将飞书导出的 Excel
+表格中的发票附件批量归档，减少逐条打开页面和手动保存文件的重复操作。</li>
+<li><strong>可核验实现：</strong>
+读取单元格超链接、浏览器会话登录、附件发现与下载、下载状态反馈，以及通过工作线程隔离耗时任务的
+PyQt5 图形界面。</li>
+<li><strong>工程侧重点：</strong>
+将界面与下载逻辑分离，提供环境变量和本地忽略文件两种凭据配置方式，并保留命令行入口与
+PyInstaller 打包配置。</li>
+</ul>
+<p><a class="project-repo-link" href="https://github.com/Even-lwx/FeishuInvCrawl" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i><span>查看
+FeishuInvCrawl
+源码</span><i class="fas fa-arrow-up-right-from-square"></i></a></p>
 <div id="technical-stack" class="project-anchor">
 
 </div>
