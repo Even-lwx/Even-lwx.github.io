@@ -51,7 +51,7 @@ section.knowledge-map(aria-labelledby='knowledge-map-title')
         i.fas.fa-project-diagram(aria-hidden='true')
         span KNOWLEDGE MAP
       h2#knowledge-map-title 知识轨迹
-      p 从课程复习到嵌入式实践，每条连线都来自文章中共同出现的标签。
+      p 从课程复习到嵌入式实践，每条连线都来自文章中共同出现的标签。拖动球体可从不同方向探索主题。
     .knowledge-map__stats(aria-label='图谱统计')
       span
         strong= knowledgeNodes.length
@@ -61,7 +61,7 @@ section.knowledge-map(aria-labelledby='knowledge-map-title')
         | 条关联
 
   .knowledge-graph(data-knowledge-graph)
-    canvas.knowledge-graph__canvas(tabindex='0' role='img' aria-label='博客标签知识图谱')
+    canvas.knowledge-graph__canvas(tabindex='0' role='img' aria-label='可旋转的球形博客标签知识图谱')
     .knowledge-graph__tooltip(role='status' aria-live='polite' hidden)
 
     form.knowledge-graph__search(role='search')
