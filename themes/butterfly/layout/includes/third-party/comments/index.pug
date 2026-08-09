@@ -1,10 +1,20 @@
 - let defaultComment = theme.comments.use[0]
-hr.custom-hr
 #post-comment
   .comment-head
     .comment-headline
-      i.fas.fa-comments.fa-fw
-      span= ' ' + _p('comment')
+      span.comment-headline__icon
+        i.far.fa-comments
+      span.comment-headline__copy
+        strong= _p('comment')
+        if defaultComment === 'Giscus'
+          small 使用 GitHub 账号参与讨论，评论公开且可追溯
+        else
+          small 分享你的问题、想法或补充
+
+    if defaultComment === 'Giscus'
+      a.comment-discussion-link(href='https://github.com/Even-lwx/Even-lwx.github.io/discussions' target='_blank' rel='noopener noreferrer')
+        i.fab.fa-github
+        span 查看讨论
     
     if theme.comments.use.length > 1
       .comment-switch

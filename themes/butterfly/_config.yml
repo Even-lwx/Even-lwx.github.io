@@ -282,9 +282,9 @@ aside:
 # busuanzi count for PV / UV in site
 # 訪問人數
 busuanzi:
-  site_uv: false
-  site_pv: false
-  page_pv: false
+  site_uv: true
+  site_pv: true
+  page_pv: true
 
 # Time difference between publish date and now (網頁運行時間)
 # Formal: Month/Day/Year Time or Year/Month/Day Time
@@ -413,7 +413,7 @@ addtoany:
 comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
-  use:
+  use: Giscus
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
@@ -499,13 +499,18 @@ twikoo:
 # Giscus
 # https://giscus.app/
 giscus:
-  repo:
-  repo_id:
-  category_id:
+  repo: Even-lwx/Even-lwx.github.io
+  repo_id: R_kgDOMm4GKg
+  category: Announcements
+  category_id: DIC_kwDOMm4GKs4DC_W4
   theme:
-    light: light
-    dark: dark
+    light: noborder_light
+    dark: transparent_dark
   option:
+    data-lang: zh-CN
+    data-strict: 1
+    data-input-position: top
+    data-reactions-enabled: 1
 
 # Remark42
 # https://remark42.com/docs/configuration/frontend/
@@ -956,7 +961,7 @@ CDN:
     # artalk_css:
     # artalk_js:
     # blueimp_md5:
-    # busuanzi:
+    busuanzi: https://cn.vercount.one/js
     # canvas_fluttering_ribbon:
     canvas_nest: /lib/effects/canvas-nest.min.js
     # canvas_ribbon:

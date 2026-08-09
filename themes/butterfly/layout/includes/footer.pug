@@ -1,17 +1,29 @@
-#footer-wrap
-  if theme.footer.owner.enable
-    - var now = new Date()
-    - var nowYear = now.getFullYear()
-    if theme.footer.owner.since && theme.footer.owner.since != nowYear
-      .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By ${config.author}`
-    else
-      .copyright!= `&copy;${nowYear} By ${config.author}`
-  if theme.footer.copyright
-    .framework-info
-      span= _p('footer.framework') + ' '
-      a(href='https://hexo.io')= 'Hexo'
-      span.footer-separator |
-      span= _p('footer.theme') + ' '
-      a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'
-  if theme.footer.custom_text
-    .footer_custom_text!=`${theme.footer.custom_text}`
+- const currentYear = new Date().getFullYear()
+- const sinceYear = theme.footer.owner.since || currentYear
+
+#footer-wrap.site-footer
+  .site-footer__main
+    .site-footer__identity
+      a.site-footer__brand(href=url_for('/') aria-label='返回首页')
+        i.fas.fa-code
+        span if-else
+      p.site-footer__tagline 把控制算法写进真实系统，也把工程过程留在这里。
+    nav.site-footer__nav(aria-label='页脚导航')
+      a(href=url_for('/projects/'))
+        i.fas.fa-code-branch
+        span 项目
+      a(href=url_for('/archives/'))
+        i.fas.fa-book-open
+        span 文章
+      a(href='https://github.com/Even-lwx' target='_blank' rel='noopener noreferrer')
+        i.fab.fa-github
+        span GitHub
+      a(href='mailto:1191228412@qq.com' aria-label='发送邮件至 1191228412@qq.com')
+        i.fas.fa-envelope
+        span 联系
+  .site-footer__bottom
+    span &copy; #{sinceYear} - #{currentYear} if-else
+    span.site-footer__stack
+      | Hexo
+      span.site-footer__dot ·
+      | Butterfly
