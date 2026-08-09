@@ -1,0 +1,14 @@
+- const hasMathContent = page.content && page.content.includes('type="math/tex"')
+if theme.mathjax && theme.mathjax.enable && hasMathContent
+  include ./mathjax.pug
+
+if theme.katex && theme.katex.enable
+  if theme.katex.per_page
+    if is_post() || is_page()
+      include ./katex.pug
+  else
+    if page.katex
+      include ./katex.pug
+
+if theme.mermaid.enable
+  include ./mermaid.pug

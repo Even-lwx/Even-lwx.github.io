@@ -1,0 +1,9 @@
+if theme.aside.card_announcement.enable
+  .card-widget.card-announcement.aside-status-card
+    .item-headline
+      i.fas.fa-satellite-dish
+      span 当前动态
+    .aside-status__body
+      span.aside-status__dot(aria-hidden='true')
+      .announcement_content!= theme.aside.card_announcement.content
+    .aside-status__meta 博客持续更新中

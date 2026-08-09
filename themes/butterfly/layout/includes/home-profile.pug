@@ -1,0 +1,117 @@
+section.creator-hero(aria-labelledby='home-profile-title')
+  .creator-hero__inner
+    .creator-hero__copy
+      .creator-hero__eyebrow
+        i.fas.fa-code
+        span EMBEDDED · CONTROL · ROBOTICS
+      h1#home-profile-title.creator-hero__title if-else
+      p.creator-hero__role 智能科学与技术本科生 / 嵌入式与机器人开发
+      p.creator-hero__summary
+        | 我把控制算法写进真实系统，也把踩过的坑写成技术文章。
+        | 目前聚焦无人机、智能车、轮足机器人与嵌入式工程实践。
+      .creator-hero__actions
+        a.creator-button.creator-button--primary(href=url_for('/projects/'))
+          i.fas.fa-code-branch
+          span 查看项目
+        a.creator-button(href=url_for('/about/'))
+          i.fas.fa-user
+          span 了解我
+        a.creator-icon-button(href='https://github.com/Even-lwx' target='_blank' rel='noopener noreferrer' title='GitHub' aria-label='访问 GitHub')
+          i.fab.fa-github
+        a.creator-button(href='mailto:1191228412@qq.com' title='发送邮件' aria-label='发送邮件至 1191228412@qq.com')
+          i.fas.fa-envelope
+          span 1191228412@qq.com
+      .creator-proof(aria-label='项目成果')
+        .creator-proof__item
+          strong 1st
+          span 智能车浙江赛区
+        .creator-proof__item
+          strong 2
+          span 核心机器人项目
+        .creator-proof__item
+          strong 1
+          span 已受理专利
+    figure.creator-hero__portrait
+      img(src=url_for('/img/avatar.jpg') alt='if-else 的个人头像')
+      figcaption
+        span.creator-status-dot(aria-hidden='true')
+        | 持续构建，持续记录
+
+section.home-section.home-projects(aria-labelledby='featured-projects-title')
+  header.home-section__header
+    .home-section__heading
+      span.home-section__eyebrow SELECTED PROJECTS
+      h2#featured-projects-title 把想法做成能运行的系统
+      p 这里不是技术名词陈列，而是我负责设计、调试并交付的工程项目。
+    a.home-section__more(href=url_for('/projects/'))
+      span 全部项目
+      i.fas.fa-arrow-right
+
+  .project-showcase
+    article.project-showcase__item.project-showcase__item--featured
+      .project-showcase__topline
+        span.project-showcase__index 01
+        span.project-showcase__result 浙江赛区一等奖 · 第一名
+      .project-showcase__icon
+        i.fas.fa-plane
+      h3 四旋翼无人机空地有缆协同系统
+      p 作为项目负责人，完成飞控运动控制、多传感器融合、视觉识别和路径规划，并推进空地系统联调闭环。
+      .project-showcase__tags
+        span TRAVEO
+        span 串级 PID
+        span 计算机视觉
+      a.project-showcase__link(href=url_for('/projects/#air-ground-system'))
+        span 查看项目细节
+        i.fas.fa-arrow-right
+
+    article.project-showcase__item
+      .project-showcase__topline
+        span.project-showcase__index 02
+        span.project-showcase__result 新苗计划 · 专利受理
+      .project-showcase__icon.project-showcase__icon--teal
+        i.fas.fa-robot
+      h3 智能手机协同桌面级轮足机器人
+      p 负责 FreeRTOS 软件架构、姿态解算、通信和多串级 PID，实现机器人自主平衡与单边桥前进。
+      .project-showcase__tags
+        span ESP32
+        span FreeRTOS
+        span EKF
+      a.project-showcase__link(href=url_for('/projects/#wheeled-leg-robot'))
+        span 查看项目细节
+        i.fas.fa-arrow-right
+
+section.home-section.home-topics(aria-labelledby='home-topics-title')
+  header.home-section__header
+    .home-section__heading
+      span.home-section__eyebrow EXPLORE BY TOPIC
+      h2#home-topics-title 从一个感兴趣的方向开始
+  nav.home-topic-list(aria-label='文章主题')
+    a.home-topic(href=url_for('/tags/智能车/'))
+      i.fas.fa-car-side
+      span
+        strong 智能车与机器人
+        small 运动控制、结构与竞赛实践
+    a.home-topic(href=url_for('/tags/单片机/'))
+      i.fas.fa-microchip
+      span
+        strong 嵌入式开发
+        small MCU、RTOS 与硬件调试
+    a.home-topic(href=url_for('/tags/c语言/'))
+      i.fas.fa-terminal
+      span
+        strong 编程与工具
+        small C、Python 与工程效率
+    a.home-topic(href=url_for('/tags/期末复习/'))
+      i.fas.fa-book-open
+      span
+        strong 学习笔记
+        small 课程复盘与知识整理
+
+section.home-writing-intro(aria-labelledby='latest-writing-title')
+  .home-section__heading
+    span.home-section__eyebrow LATEST WRITING
+    h2#latest-writing-title 最近在写
+    p 项目复盘、技术笔记，以及值得长期保留的学习记录。
+  a.home-section__more(href=url_for('/archives/'))
+    span 全部文章
+    i.fas.fa-arrow-right

@@ -1,0 +1,15 @@
+node_modules/
+public/
+.deploy_git/
+db.json
+*.log
+.DS_Store
+Thumbs.db
+
+# Unused legacy theme
+themes/fluid/
+
+# Tencent Cloud EdgeOne
+.env
+.edgeone/*
+.tef_dist/*
