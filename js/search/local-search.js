@@ -7,14 +7,27 @@
 class LocalSearch {
   constructor ({
     path = '',
+    version = 'unversioned',
     unescape = false,
     top_n_per_article = 1
   }) {
     this.path = path
     this.unescape = unescape
     this.top_n_per_article = top_n_per_article
-    this.isfetched = false
+    this.isFetched = false
     this.datas = null
+    this.fetchPromise = null
+    this.cacheKey = `butterfly:local-search:${this.path}:${version}`
+  }
+
+  escapeHTML (value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[char])
   }
 
   getIndexByWord (words, text, caseSensitive = false) {
@@ -93,24 +106,33 @@ class LocalSearch {
     let result = ''
     let index = slice.start
     for (const { position, length } of slice.hits) {
-      result += val.substring(index, position)
+      result += this.escapeHTML(val.substring(index, position))
       index = position + length
-      result += `<mark class="search-keyword">${val.substr(position, length)}</mark>`
+      result += `<mark class="search-keyword">${this.escapeHTML(val.substr(position, length))}</mark>`
     }
-    result += val.substring(index, slice.end)
+    result += this.escapeHTML(val.substring(index, slice.end))
     return result
   }
 
   getResultItems (keywords) {
     const resultItems = []
-    this.datas.forEach(({ title, content, url }) => {
+    this.datas.forEach(({ title, content, summary, tags, url }) => {
+      const tagsText = tags.map(tag => `#${tag}`).join(' ')
+
       // The number of different keywords included in the article.
       const [indexOfTitle, keysOfTitle] = this.getIndexByWord(keywords, title)
+      const [indexOfTags, keysOfTags] = this.getIndexByWord(keywords, tagsText)
+      const [indexOfSummary, keysOfSummary] = this.getIndexByWord(keywords, summary)
       const [indexOfContent, keysOfContent] = this.getIndexByWord(keywords, content)
-      const includedCount = new Set([...keysOfTitle, ...keysOfContent]).size
+      const includedCount = new Set([
+        ...keysOfTitle,
+        ...keysOfTags,
+        ...keysOfSummary,
+        ...keysOfContent
+      ]).size
 
       // Show search results
-      const hitCount = indexOfTitle.length + indexOfContent.length
+      const hitCount = indexOfTitle.length + indexOfTags.length + indexOfSummary.length + indexOfContent.length
       if (hitCount === 0) return
 
       const slicesOfTitle = []
@@ -118,48 +140,66 @@ class LocalSearch {
         slicesOfTitle.push(this.mergeIntoSlice(0, title.length, indexOfTitle))
       }
 
-      let slicesOfContent = []
-      while (indexOfContent.length !== 0) {
-        const item = indexOfContent[0]
-        const { position } = item
-        // Cut out 120 characters. The maxlength of .search-input is 80.
-        const start = Math.max(0, position - 20)
-        const end = Math.min(content.length, position + 100)
-        slicesOfContent.push(this.mergeIntoSlice(start, end, indexOfContent))
+      const slicesOfTags = []
+      if (indexOfTags.length !== 0) {
+        slicesOfTags.push(this.mergeIntoSlice(0, tagsText.length, indexOfTags))
       }
 
-      // Sort slices in content by included keywords' count and hits' count
-      slicesOfContent.sort((left, right) => {
+      let excerptSlices = []
+      const collectExcerptSlices = (source, text, indexes) => {
+        while (indexes.length !== 0) {
+          const { position } = indexes[0]
+          const start = Math.max(0, position - 20)
+          const end = Math.min(text.length, position + 100)
+          excerptSlices.push({
+            source,
+            text,
+            ...this.mergeIntoSlice(start, end, indexes)
+          })
+        }
+      }
+
+      collectExcerptSlices('summary', summary, indexOfSummary)
+      collectExcerptSlices('content', content, indexOfContent)
+
+      // Prefer excerpts that cover more distinct keywords and hits.
+      excerptSlices.sort((left, right) => {
         if (left.count !== right.count) {
           return right.count - left.count
         } else if (left.hits.length !== right.hits.length) {
           return right.hits.length - left.hits.length
+        } else if (left.source !== right.source) {
+          return left.source === 'summary' ? -1 : 1
         }
         return left.start - right.start
       })
 
-      // Select top N slices in content
+      // Select top N excerpts per article.
       const upperBound = parseInt(this.top_n_per_article, 10)
       if (upperBound >= 0) {
-        slicesOfContent = slicesOfContent.slice(0, upperBound)
+        excerptSlices = excerptSlices.slice(0, upperBound)
       }
 
-      let resultItem = ''
+      const resultUrl = new URL(url, location.origin)
+      resultUrl.searchParams.set('highlight', keywords.join(' '))
+      const safeUrl = this.escapeHTML(resultUrl.href)
+      const titleMarkup = slicesOfTitle.length !== 0
+        ? this.highlightKeyword(title, slicesOfTitle[0])
+        : this.escapeHTML(title)
 
-      url = new URL(url, location.origin)
-      url.searchParams.append('highlight', keywords.join(' '))
+      let resultItem = `<div class="local-search-hit-item"><a href="${safeUrl}"><span class="search-result-title">${titleMarkup}</span>`
 
-      if (slicesOfTitle.length !== 0) {
-        resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${this.highlightKeyword(title, slicesOfTitle[0])}</span>`
-      } else {
-        resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${title}</span>`
+      if (slicesOfTags.length !== 0) {
+        resultItem += `<p class="search-result">${this.highlightKeyword(tagsText, slicesOfTags[0])}</p>`
       }
 
-      slicesOfContent.forEach(slice => {
-        resultItem += `<p class="search-result">${this.highlightKeyword(content, slice)}...</p></a>`
+      excerptSlices.forEach(slice => {
+        const prefix = slice.start > 0 ? '...' : ''
+        const suffix = slice.end < slice.text.length ? '...' : ''
+        resultItem += `<p class="search-result">${prefix}${this.highlightKeyword(slice.text, slice)}${suffix}</p>`
       })
 
-      resultItem += '</div>'
+      resultItem += '</a></div>'
       resultItems.push({
         item: resultItem,
         id: resultItems.length,
@@ -170,30 +210,91 @@ class LocalSearch {
     return resultItems
   }
 
-  fetchData () {
-    const isXml = !this.path.endsWith('json')
-    fetch(this.path)
-      .then(response => response.text())
-      .then(res => {
-        // Get the contents from search data
-        this.isfetched = true
-        this.datas = isXml
-          ? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(element => ({
-              title: element.querySelector('title').textContent,
-              content: element.querySelector('content').textContent,
-              url: element.querySelector('url').textContent
-            }))
-          : JSON.parse(res)
-        // Only match articles with non-empty titles
-        this.datas = this.datas.filter(data => data.title).map(data => {
-          data.title = data.title.trim()
-          data.content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
-          data.url = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
-          return data
-        })
-        // Remove loading animation
-        window.dispatchEvent(new Event('search:loaded'))
+  normalizeData (data) {
+    if (!Array.isArray(data)) throw new TypeError('The local search index must be an array')
+
+    return data.map(item => {
+      let url = ''
+      try {
+        const candidate = new URL(String(item.url || '').trim(), location.origin)
+        if (['http:', 'https:'].includes(candidate.protocol) && candidate.origin === location.origin) {
+          url = candidate.href
+        }
+      } catch (error) {
+        // Invalid or unsafe URLs are omitted from the search index.
+      }
+
+      return {
+        title: String(item.title || '').trim(),
+        url,
+        tags: (Array.isArray(item.tags) ? item.tags : []).map(tag => String(tag).trim()).filter(Boolean),
+        summary: String(item.summary || '').trim(),
+        content: String(item.content || '').trim()
+      }
+    }).filter(item => item.title && item.url)
+  }
+
+  readCache () {
+    try {
+      const cached = sessionStorage.getItem(this.cacheKey)
+      return cached ? this.normalizeData(JSON.parse(cached)) : null
+    } catch (error) {
+      this.clearCache()
+      return null
+    }
+  }
+
+  writeCache () {
+    try {
+      sessionStorage.setItem(this.cacheKey, JSON.stringify(this.datas))
+    } catch (error) {
+      // Search remains available when storage is disabled or full.
+    }
+  }
+
+  clearCache () {
+    try {
+      sessionStorage.removeItem(this.cacheKey)
+    } catch (error) {
+      // Ignore browsers that block session storage.
+    }
+  }
+
+  fetchData ({ force = false } = {}) {
+    if (this.isFetched && !force) return Promise.resolve(this.datas)
+    if (this.fetchPromise && !force) return this.fetchPromise
+
+    if (!force) {
+      const cached = this.readCache()
+      if (cached) {
+        this.datas = cached
+        this.isFetched = true
+        return Promise.resolve(cached)
+      }
+    } else {
+      this.isFetched = false
+      this.datas = null
+      this.clearCache()
+    }
+
+    this.fetchPromise = fetch(this.path, {
+      headers: { Accept: 'application/json' }
+    })
+      .then(response => {
+        if (!response.ok) throw new Error(`Search index request failed with status ${response.status}`)
+        return response.json()
       })
+      .then(data => {
+        this.datas = this.normalizeData(data)
+        this.isFetched = true
+        this.writeCache()
+        return this.datas
+      })
+      .finally(() => {
+        this.fetchPromise = null
+      })
+
+    return this.fetchPromise
   }
 
   // Highlight by wrapping node in mark elements with the given class name
@@ -235,40 +336,59 @@ class LocalSearch {
 }
 
 window.addEventListener('load', () => {
-// Search
-  const { path, top_n_per_article, unescape, languages } = GLOBAL_CONFIG.localSearch
+  const { path, version, top_n_per_article, unescape, languages } = GLOBAL_CONFIG.localSearch
   const localSearch = new LocalSearch({
     path,
+    version,
     top_n_per_article,
     unescape
   })
 
   const input = document.querySelector('#local-search-input input')
   const statsItem = document.getElementById('local-search-stats-wrap')
+  const resultsContainer = document.getElementById('local-search-results')
   const $loadingStatus = document.getElementById('loading-status')
-  const isXml = !path.endsWith('json')
+  const $loadingDatabase = document.getElementById('loading-database')
+  const $loadingIcon = $loadingDatabase.querySelector('i')
+  const $loadingMessage = $loadingDatabase.querySelector('.loading-database-message')
+  const $retryButton = document.getElementById('local-search-retry')
+  const $searchWrap = document.querySelector('#local-search .search-wrap')
+  const $searchMask = document.getElementById('search-mask')
+  const $searchDialog = document.querySelector('#local-search .search-dialog')
+
+  const setDataState = state => {
+    const isReady = state === 'ready'
+    const isError = state === 'error'
+    $loadingDatabase.style.display = isReady ? 'none' : 'block'
+    $searchWrap.style.display = isReady ? 'block' : 'none'
+    $loadingIcon.hidden = isError
+    if ($retryButton) $retryButton.hidden = !isError
+    if ($loadingMessage) {
+      $loadingMessage.textContent = isError ? languages.load_error : languages.load_data
+    }
+  }
 
   const inputEventFunction = () => {
-    if (!localSearch.isfetched) return
-    let searchText = input.value.trim().toLowerCase()
-    isXml && (searchText = searchText.replace(/</g, '&lt;').replace(/>/g, '&gt;'))
+    if (!localSearch.isFetched) return
+
+    const searchText = input.value.trim().toLowerCase()
     if (searchText !== '') $loadingStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
     const keywords = searchText.split(/[-\s]+/)
-    const container = document.getElementById('local-search-results')
     let resultItems = []
+
     if (searchText.length > 0) {
-    // Perform local searching
       resultItems = localSearch.getResultItems(keywords)
     }
+
     if (keywords.length === 1 && keywords[0] === '') {
-      container.textContent = ''
+      resultsContainer.textContent = ''
       statsItem.textContent = ''
     } else if (resultItems.length === 0) {
-      container.textContent = ''
+      resultsContainer.textContent = ''
       const statsDiv = document.createElement('div')
       statsDiv.className = 'search-result-stats'
       statsDiv.textContent = languages.hits_empty.replace(/\$\{query}/, searchText)
-      statsItem.innerHTML = statsDiv.outerHTML
+      statsItem.replaceChildren(statsDiv)
     } else {
       resultItems.sort((left, right) => {
         if (left.includedCount !== right.includedCount) {
@@ -279,25 +399,41 @@ window.addEventListener('load', () => {
         return right.id - left.id
       })
 
-      const stats = languages.hits_stats.replace(/\$\{hits}/, resultItems.length)
-
-      container.innerHTML = `<div class="search-result-list">${resultItems.map(result => result.item).join('')}</div>`
-      statsItem.innerHTML = `<hr><div class="search-result-stats">${stats}</div>`
-      window.pjax && window.pjax.refresh(container)
+      const statsDiv = document.createElement('div')
+      statsDiv.className = 'search-result-stats'
+      statsDiv.textContent = languages.hits_stats.replace(/\$\{hits}/, resultItems.length)
+      resultsContainer.innerHTML = `<div class="search-result-list">${resultItems.map(result => result.item).join('')}</div>`
+      statsItem.replaceChildren(document.createElement('hr'), statsDiv)
+      window.pjax && window.pjax.refresh(resultsContainer)
     }
 
     $loadingStatus.textContent = ''
   }
 
-  let loadFlag = false
-  const $searchMask = document.getElementById('search-mask')
-  const $searchDialog = document.querySelector('#local-search .search-dialog')
+  const loadSearchData = ({ force = false } = {}) => {
+    setDataState('loading')
+    return localSearch.fetchData({ force })
+      .then(() => {
+        setDataState('ready')
+        if (input.value.trim()) inputEventFunction()
+      })
+      .catch(error => {
+        console.error('[LocalSearch] Failed to load the search index.', error)
+        setDataState('error')
+      })
+  }
 
-  // fix safari
+  let isInputBound = false
+
+  // Fix the full-height dialog in mobile Safari.
   const fixSafariHeight = () => {
     if (window.innerWidth < 768) {
       $searchDialog.style.setProperty('--search-height', window.innerHeight + 'px')
     }
+  }
+
+  const handleEscape = event => {
+    if (event.code === 'Escape') closeSearch()
   }
 
   const openSearch = () => {
@@ -307,55 +443,41 @@ window.addEventListener('load', () => {
     btf.animateIn($searchMask, 'to_show 0.5s')
     btf.animateIn($searchDialog, 'titleScale 0.5s')
     setTimeout(() => { input.focus() }, 300)
-    if (!loadFlag) {
-      !localSearch.isfetched && localSearch.fetchData()
-      input.addEventListener('input', inputEventFunction)
-      loadFlag = true
-    }
-    // shortcut: ESC
-    document.addEventListener('keydown', function f (event) {
-      if (event.code === 'Escape') {
-        closeSearch()
-        document.removeEventListener('keydown', f)
-      }
-    })
 
+    if (!isInputBound) {
+      input.addEventListener('input', inputEventFunction)
+      isInputBound = true
+    }
+    if (!localSearch.isFetched && !localSearch.fetchPromise) loadSearchData()
+
+    document.addEventListener('keydown', handleEscape)
     fixSafariHeight()
     window.addEventListener('resize', fixSafariHeight)
   }
 
-  const closeSearch = () => {
+  function closeSearch () {
     const bodyStyle = document.body.style
     bodyStyle.width = ''
     bodyStyle.overflow = ''
     btf.animateOut($searchDialog, 'search_close .5s')
     btf.animateOut($searchMask, 'to_hide 0.5s')
+    document.removeEventListener('keydown', handleEscape)
     window.removeEventListener('resize', fixSafariHeight)
   }
 
   const searchClickFn = () => {
-    btf.addEventListenerPjax(document.querySelector('#search-button > .search'), 'click', openSearch)
+    const $searchButton = document.querySelector('#search-button > .search')
+    if ($searchButton) btf.addEventListenerPjax($searchButton, 'click', openSearch)
   }
 
-  const searchFnOnce = () => {
-    document.querySelector('#local-search .search-close-button').addEventListener('click', closeSearch)
-    $searchMask.addEventListener('click', closeSearch)
-    if (GLOBAL_CONFIG.localSearch.preload) {
-      localSearch.fetchData()
-    }
-    localSearch.highlightSearchWords(document.getElementById('article-container'))
-  }
+  document.querySelector('#local-search .search-close-button').addEventListener('click', closeSearch)
+  $searchMask.addEventListener('click', closeSearch)
+  if ($retryButton) $retryButton.addEventListener('click', () => loadSearchData({ force: true }))
 
-  window.addEventListener('search:loaded', () => {
-    const $loadDataItem = document.getElementById('loading-database')
-    $loadDataItem.nextElementSibling.style.display = 'block'
-    $loadDataItem.remove()
-  })
-
+  if (GLOBAL_CONFIG.localSearch.preload) loadSearchData()
+  localSearch.highlightSearchWords(document.getElementById('article-container'))
   searchClickFn()
-  searchFnOnce()
 
-  // pjax
   window.addEventListener('pjax:complete', () => {
     !btf.isHidden($searchMask) && closeSearch()
     localSearch.highlightSearchWords(document.getElementById('article-container'))
